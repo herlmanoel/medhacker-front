@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-
-export default axios.create({
-    baseUrl: 'http://http://localhost:3333'
+const instance = axios.create({
+    baseURL: 'http://localhost:3333',
+    headers: {
+        'Content-Type': 'application/json'
+    }
 });
+
+  
+export default instance;

@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     outline: 0;
   }
+  
   :root {
     font-size: 60%;
     --color-background: #FDFDFD;
@@ -36,24 +37,28 @@ const GlobalStyle = createGlobalStyle`
 }
 
 html, body, #root {
-    height: 100vh;
+    width: 100vw
 }
 
   body {
       background: var(--color-background);
+      overflow-x: hidden !important;
   }
 
   #root {
       display: flex;
       align-items: center;
       justify-content: center;
+      /* max-width: 1200px; */
+      width: 100vw;
   }
 
   body,
   input,
   button,
-  textarea {
-      font: 500 1.6rem Poppins;
+  textarea,
+  select {
+      font: 500 1.6rem Poppins !important;
   }
 
   button {
@@ -65,10 +70,6 @@ html, body, #root {
     font-weight: 300;
   }
 
-  .container {
-      width: 90vw;
-      max-width: 700px;
-  }
 
   @media (min-width: 700px) {
       :root {
