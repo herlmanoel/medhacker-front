@@ -24,13 +24,13 @@ import { ContextListagem } from '../../../context/Listagem';
 
 export default function TableComponent() {
 
-    const { dataTable, columns, title } = useContext(ContextListagem);
+    const { dataTable, columns, title, registrationPage } = useContext(ContextListagem);
 
     const history = useHistory();
 
     function handleButtonCadastrar(event) {
         event.preventDefault();
-        return history.push('/formusuario');
+        return history.push(registrationPage);
     }
 
     function BodyItems() {

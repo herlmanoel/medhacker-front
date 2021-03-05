@@ -6,6 +6,7 @@ import Login from '../pages/Login';
 import ListagemUsuarios from '../pages/ListagemUsuarios';
 import ListagemEventos from '../pages/ListagemEventos';
 import FormUsuario from '../pages/FormUsuario';
+import FormEvento from '../pages/FormEvento';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -27,6 +28,7 @@ const Routes = () => (
       <Switch>
         <Route exact path="/" component={Login} />
         <Route exact path="/formusuario" component={FormUsuario} />
+        <Route exact path="/formevento" component={FormEvento} />
         <Route exact path="/listagemusuarios" component={ListagemUsuarios} />
         <Route exact path="/ListagemEventos" component={ListagemEventos} />
         <PrivateRoute path="/app" component={() => <h1>Você está logado</h1>} />

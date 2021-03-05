@@ -6,11 +6,12 @@ import { ContextListagem } from '../../context/Listagem';
 import Eventos from '../../services/eventos.json';
 
 export default function ListagemEventos() {
-    const { dataTable, setDataTable, setColumns, setTitle } = useContext(ContextListagem);
+    const { dataTable, setDataTable, setColumns, setTitle, setRegistrationPage } = useContext(ContextListagem);
 
     useEffect(() => {
         document.title = 'Listagem de Eventos';
         const tituloPage = 'Eventos';
+        const routePage = '/formevento';
 
         const columns = [
             { id: 1, title: 'Título' },
@@ -18,7 +19,7 @@ export default function ListagemEventos() {
             { id: 4, title: 'Endereço' },
             { id: 5, title: 'Ações' },
         ];
-
+        setRegistrationPage(routePage);
         setTitle(tituloPage);
         setColumns(columns);
         
