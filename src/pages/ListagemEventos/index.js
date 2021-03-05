@@ -28,7 +28,7 @@ export default function ListagemEventos() {
             await setDataTable(Eventos);
         })();
 
-    }, [dataTable, setDataTable, setColumns, setTitle ]);
+    }, [dataTable, setDataTable, setColumns, setTitle, setRegistrationPage ]);
 
     return (
         <Listagem></Listagem>

@@ -27,7 +27,7 @@ export default function ListagemUsuarios() {
             await setDataTable(Usuarios);
         })();
 
-    }, [dataTable, setDataTable, setColumns, setTitle ]);
+    }, [dataTable, setDataTable, setColumns, setTitle, setRegistrationPage, ]);
 
     return (
         <Listagem></Listagem>

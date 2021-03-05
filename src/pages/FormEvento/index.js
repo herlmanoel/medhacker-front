@@ -4,7 +4,6 @@ import {
     Form,
     Titulo,
     Subtitulo,
-    FormGroup,
     WrapperButton,
     FooterFrom,
 } from './style.js';
