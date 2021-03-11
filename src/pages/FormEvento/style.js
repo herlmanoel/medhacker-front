@@ -44,6 +44,13 @@ export const FormGroup = styled.div`
     gap: 1.4rem
 `;
 
+export const FormDivider = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 2rem;
+`;
+
 export const WrapperButton = styled.div`
     width: 32rem;
 `;

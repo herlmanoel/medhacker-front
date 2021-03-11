@@ -2,10 +2,12 @@ import styled from 'styled-components';
 
 
 export const Wrapper = styled.div`
+    width: 100%;
     position: relative;
-    & + & {
-        margin-top: 1.4rem;
-    }
+    margin-top: 1.4rem;
+    /* & + & {
+        
+    } */
     &:focus-within::after {
         width: calc(100% - 3.2rem);
         height: 2px;
