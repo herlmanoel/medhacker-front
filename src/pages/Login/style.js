@@ -1,29 +1,22 @@
 import styled from 'styled-components';
 import ImgBackground from '../../assets/img/img-login.jpg';
 
-export const Wrapper = styled.div`
-    width: 100vw;
-    height: 100vh;
-    /* background-color: red; */
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-`;
+
 
 export const ImgContent = styled.div`
     background-image: url(${ImgBackground});
     background-size: cover;
-
 `;
 
+
 export const Content = styled.div`
+    /* background-color: red; */
     display: flex;
     align-items: center;
     justify-content: center;
 `;
 
-export const FormContent = styled.div`
-
-`;
+export const FormContent = styled.div``;
 
 export const ImgBlock = styled.div`
     width: 100%;
@@ -33,7 +26,6 @@ export const ImgBlock = styled.div`
     align-items: center;
     justify-content: center;
 `;
-
 
 export const ImgLogo = styled.img`
     width: 13rem;
@@ -101,3 +93,35 @@ export const ContentCheckbox = styled.div`
 `;
 
 
+export const Wrapper = styled.div`
+    width: 100vw;
+    height: 100vh;
+    /* background-color: red; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @media (max-width: 813px) {
+        display: flex;  
+        align-items: center;
+        justify-content: center;
+
+        ${ImgContent} {
+            display:none;
+        }  
+        ${Content} {
+            width: 40rem;
+        }
+    }
+    @media (max-width: 513px) {
+        display: flex;  
+        align-items: center;
+        justify-content: center;
+
+        ${ImgContent} {
+            display:none;
+        }  
+        ${Content} {
+            width: 30rem;
+        }
+    }
+`;

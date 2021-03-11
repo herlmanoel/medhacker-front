@@ -1,14 +1,4 @@
 import styled from 'styled-components';
-export const Wrapper = styled.div`
-    width: 100%;
-    height: 8rem;
-    margin-top: 3rem;
-    margin-bottom: 3%;
-    background-color: #FDFDFD;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`;
 
 export const Content = styled.div`
     width: 100%;
@@ -38,3 +28,32 @@ export const VoltarBlock = styled.a`
 `;
 
 export const Texto = styled.h5``;
+
+
+export const Wrapper = styled.div`
+    width: 100%;
+    height: 8rem;
+    margin-top: 3rem;
+    margin-bottom: 3%;
+    background-color: #FDFDFD;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: 900px) {
+        ${Content}  {
+            width: 100%;
+            height: 4rem;
+            padding: 0 3rem;
+        }
+        height: 4rem;
+        padding: 3rem 0;
+        ${Logo} {
+            height: 6rem;
+        }
+        ${VoltarBlock} {
+            font-size: 1rem;
+        }
+    }
+    
+`;

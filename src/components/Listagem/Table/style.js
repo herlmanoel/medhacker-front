@@ -58,7 +58,7 @@ export const TrashIcon = styled(Trash)``;
 export const LinkAction = styled(Link)`
     /* text-decoration: none; */
     cursor: pointer;
-    padding: 0.5rem;
+    /* padding: 0.5rem; */
     &:hover {
         opacity: 0.6;
     }

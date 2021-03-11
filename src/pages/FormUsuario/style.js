@@ -1,14 +1,7 @@
 import styled from 'styled-components';
 
 
-export const Wrapper = styled.div.attrs()`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    
-`;
+
 
 export const Content = styled.div`
     /* margin-top: 3rem; */
@@ -60,4 +53,41 @@ export const FooterFrom = styled.div`
     width: 100%;
     display: flex;
     justify-content: flex-end;
+
+    
+`;
+
+export const Wrapper = styled.div.attrs()`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+    @media (max-width: 900px) {
+        ${Content}, ${Form}  {
+            width: 70rem;
+        }
+    }
+
+    @media (max-width: 800px) {
+        ${Content} {
+            width: 60rem;
+            padding: 3rem;
+        }
+    }
+    @media (max-width: 700px) {
+        ${Content} {
+            width: 50rem;
+            padding: 3rem;
+        }
+    }
+    @media (max-width: 500px) {
+        ${Content} {
+            width: 45rem;
+            padding: 5rem;
+            width: 100%;
+            height: 100%;
+        }
+    }
 `;

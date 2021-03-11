@@ -3,9 +3,9 @@ import styled from 'styled-components';
 export const SelectBlock = styled.div`
     position: relative;
 
-    & + & {
+
         margin-top: 1.4rem;
-    }
+
     &:focus-within::after {
         width: calc(100% - 3.2rem);
         height: 2px;

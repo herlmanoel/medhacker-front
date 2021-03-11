@@ -27,7 +27,7 @@ export default function MenuVertical() {
             <HeaderMenu>
                 <LogoImg src={logoImg} />
                 <BlockItem >
-                    <Item exact to="/Dashboard">
+                    <Item exact to="/Home">
                         <HomeIconGrey color="#A3A3A5" />
                         <HomeIconWhite color="#fff" /> Home
                     </Item>
@@ -45,13 +45,13 @@ export default function MenuVertical() {
                     </Item>
                 </BlockItem>
                 <BlockItem >
-                    <Item exact to="/ListagemProjetos">
+                    <Item exact to="/listagemprojetos">
                         <FolderIconGrey color="#A3A3A5" />
                         <FolderIconWhite color="#fff" /> Projetos
                     </Item>
                 </BlockItem>
                 <BlockItem >
-                    <Item exact to="/Config">
+                    <Item exact to="/Configuracoes">
                         <SettingsIconGrey color="#A3A3A5" />
                         <SettingsIconWhite color="#fff" /> Configurações
                     </Item>

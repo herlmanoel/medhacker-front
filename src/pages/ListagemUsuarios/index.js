@@ -2,8 +2,8 @@ import { useContext, useEffect } from 'react';
 import Listagem from '../../components/Listagem';
 import { ContextListagem } from '../../context/Listagem';
 
-// import axios from '../../services';
-import Usuarios from '../../services/usuarios.json';
+import axios from '../../services';
+// import Usuarios from '../../services/usuarios.json';
 
 export default function ListagemUsuarios() {
     const { dataTable, setDataTable, setColumns, setTitle, setRegistrationPage } = useContext(ContextListagem);
@@ -23,8 +23,8 @@ export default function ListagemUsuarios() {
         setColumns(columns);
         
         (async function getDataUsuarios() {
-            // const { data } = await axios.get('usuarios');
-            await setDataTable(Usuarios);
+            const { data } = await axios.get('usuarios');
+            await setDataTable(data);
         })();
 
     }, [dataTable, setDataTable, setColumns, setTitle, setRegistrationPage, ]);

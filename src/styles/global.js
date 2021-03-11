@@ -70,10 +70,33 @@ html, body, #root {
     font-weight: 300;
   }
 
+  @media (max-width: 900px) {
+      
+      }
 
+    @media (max-width: 800px) {
+      body,
+    input,
+    button,
+    textarea,
+    select {
+        font: 500 1.5rem Poppins !important;
+    }
+    }
+    @media (max-width: 700px) {
+       
+    }
+    @media (max-width: 500px) {
+        
+    }
   @media (min-width: 700px) {
       :root {
           font-size: 62.5%;
+      }
+  }
+  @media (min-width: 600px) {
+      :root {
+          font-size: 52.5%;
       }
   }
 `;
