@@ -21,10 +21,14 @@ import Input from '../../components/Input';
 import imgLogo from '../../assets/img/logo-colorida.jpg';
 // import axios from '../../services/index';
 
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Context } from '../../context/AuthProvider';
 
 export default function FormUsuario() {
+
+    useEffect(() => {
+        document.title = 'Login';
+    }, []);
 
     const { athenticate } = useContext(Context);
     let history = useHistory();
