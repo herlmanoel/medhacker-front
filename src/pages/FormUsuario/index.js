@@ -12,18 +12,13 @@ import MenuForm from '../../components/MenuForm';
 import Select from '../../components/Select';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from '../../services';
 import { useHistory } from 'react-router-dom';
 
 export default function FormUsuario() {
-    const initialState = {
-        nome: '',
-        permissao: '',
-        senha: '',
-        email: '',
-    } 
-    const [usuario, setUsuario] = useState(initialState);
+    const [usuario, setUsuario] = useState({});
+    const [eventos, setEventos] = useState([]);
     const history = useHistory();
 
     async function handleSubmit(event){
@@ -38,8 +33,13 @@ export default function FormUsuario() {
         const { name, value } = event.target;
         setUsuario({...usuario, [name]: value});
         console.log(usuario)
-        console.log(usuario);
     }
+
+    useEffect(() => {
+        (async () => await axios.get('eventos')
+                .then(({data}) => { setEventos(data); console.log(data);})
+                .catch((err) => console.log(err)))()
+    }, []);
 
     return (
         <Wrapper>
@@ -50,6 +50,11 @@ export default function FormUsuario() {
                     <Subtitulo>Dados pessoais</Subtitulo>
                     <Input label="Nome" name="nome" type="nome" functionChange={(event) =>handleOnChange(event)} />
                     <Input label="E-mail" name="email" type="e-mail" functionChange={(event) =>handleOnChange(event)} />
+                    <Select label="Evento" defaultValue="" name="evento" onChange={(event) =>handleOnChange(event)}>
+                        {eventos.map((item) => (
+                             <option name="evento" value={item.id}> {item.titulo} </option>
+                        ))}
+                    </Select>
                     <FormGroup>
                         <Input label="Senha" name="senha" type="password" functionChange={(event) =>handleOnChange(event)} />
                         <Select label="Permissão" defaultValue="" name="permissao" onChange={(event) =>handleOnChange(event)}>

@@ -21,7 +21,7 @@ import {
 
 import ButtonComponent from '../../Button';
 import { ContextListagem } from '../../../context/Listagem';
-
+import axios from '../../../services';
 export default function TableComponent() {
 
     const { dataTable, columns, title, registrationPage } = useContext(ContextListagem);
@@ -33,19 +33,28 @@ export default function TableComponent() {
         return history.push(registrationPage);
     }
 
+    async function handleDelete(id) {
+        await axios.delete(`/usuarios`, {
+            data: { id: id }
+           })
+        .then(result => console.log(result))
+        .catch(err => console.log(err));
+    }
+
     function BodyItems() {
         if (title === 'Eventos') {
             return dataTable.map(item => {
                 return (
                     <Line key={item.id}>
                         <ItemBody>{item.titulo}</ItemBody>
-                        <ItemBody>{item.data}</ItemBody>
                         <ItemBody> {item.endereco} </ItemBody>
+                        <ItemBody>{item.inicio}</ItemBody>
+                        <ItemBody>{item.fim}</ItemBody>
                         <ItemBody> 
-                            <LinkAction to="/">
+                            <LinkAction>
                                 <EditIcon color="#ADD96C"/>
                             </LinkAction> 
-                            <LinkAction to="/">
+                            <LinkAction onClick={() => handleDelete(item.id)}>
                                 <TrashIcon color="#F23D4C" />
                             </LinkAction>
                         </ItemBody>
@@ -65,7 +74,7 @@ export default function TableComponent() {
                     <LinkAction to="/">
                                 <EditIcon color="#ADD96C"/>
                             </LinkAction> 
-                            <LinkAction to="/">
+                            <LinkAction onClick={() => handleDelete(item.id)}>
                                 <TrashIcon color="#F23D4C" />
                             </LinkAction>
                     </ItemBody>
@@ -73,7 +82,6 @@ export default function TableComponent() {
             );
         })
     }
-
 
     return (
         <>

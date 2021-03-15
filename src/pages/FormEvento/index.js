@@ -19,17 +19,7 @@ import { useHistory } from 'react-router-dom';
 
 
 export default function FormEvento() {
-    const initialState = {
-        codigo: "MH-00004",
-        nome: "IV Capacitação Medhacker: Triagem Visual",
-        inicio: "2013-07-29T03:00:00.000Z",
-        fim: "2013-07-29T03:00:00.000Z",
-        endereco: "Av. Cap. Mor Gouveia, 3000 - Lagoa Nova, Natal - RN, 59078-970",
-        logo: "https://www.imd.ufrn.br/portal/assets/images/IMD_logo_01-01.svg",
-    }
-
-
-    const [evento, setEvento] = useState(initialState);
+    const [evento, setEvento] = useState({});
     const history = useHistory();
 
     async function handleSubmit(event) {
@@ -42,7 +32,6 @@ export default function FormEvento() {
     function handleOnChange(event) {
         const { name, value } = event.target;
         setEvento({ ...evento, [name]: value });
-        console.log(evento)
         console.log(evento);
     }
 
@@ -53,7 +42,7 @@ export default function FormEvento() {
                 <Form onSubmit={(event) => handleSubmit(event)}>
                     <Titulo>Cadastro de Evento</Titulo>
                     <Subtitulo>Dados do evento</Subtitulo>
-                    <Input label="Titulo" name="titulo" type="text" functionChange={(event) => handleOnChange(event)} />
+                    <Input label="Nome" name="nome" type="text" functionChange={(event) => handleOnChange(event)} />
                     <Input label="Código" name="codigo" type="text" functionChange={(event) => handleOnChange(event)} />
                     <Textarea label="Descricao" name="descricao"> </Textarea>
                     <FormDivider>

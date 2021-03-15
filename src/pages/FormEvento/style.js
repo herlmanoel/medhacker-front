@@ -1,8 +1,5 @@
 import styled from 'styled-components';
 
-
-
-
 export const Content = styled.div`
 
     width: 100%;
@@ -73,8 +70,15 @@ export const Wrapper = styled.div`
             width: 70rem;
         }
     }
+    @media (max-width: 888px) {
+        ${Content} {
+            width: 70rem;
+            /* background-color: red; */
+            padding: 3rem;
+        }
+    }
 
-    @media (max-width: 800px) {
+    @media (max-width: 850px) {
         ${Content} {
             width: 60rem;
             padding: 3rem;
@@ -94,4 +98,5 @@ export const Wrapper = styled.div`
             height: 100%;
         }
     }
+   
 `;
