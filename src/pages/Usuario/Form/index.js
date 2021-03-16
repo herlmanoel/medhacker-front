@@ -8,12 +8,12 @@ import {
     WrapperButton,
     FooterFrom,
 } from './style.js';
-import MenuForm from '../../components/MenuForm';
-import Select from '../../components/Select';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+import MenuForm from '../../../components/MenuForm';
+import Select from '../../../components/Select';
+import Input from '../../../components/Input';
+import Button from '../../../components/Button';
 import { useState, useEffect } from 'react';
-import axios from '../../services';
+import axios from '../../../services';
 import { useHistory } from 'react-router-dom';
 
 export default function FormUsuario() {

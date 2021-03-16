@@ -8,12 +8,12 @@ import {
     FooterFrom,
     FormDivider,
 } from './style.js';
-import MenuForm from '../../components/MenuForm';
-import Textarea from '../../components/Textarea';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+import MenuForm from '../../../components/MenuForm';
+import Textarea from '../../../components/Textarea';
+import Input from '../../../components/Input';
+import Button from '../../../components/Button';
 import { useState } from 'react';
-import axios from '../../services';
+import axios from '../../../services';
 import { useHistory } from 'react-router-dom';
 
 

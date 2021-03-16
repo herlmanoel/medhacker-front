@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
-
 import {
     Table,
     Head,
@@ -42,27 +41,6 @@ export default function TableComponent() {
     }
 
     function BodyItems() {
-        if (title === 'Eventos') {
-            return dataTable.map(item => {
-                return (
-                    <Line key={item.id}>
-                        <ItemBody>{item.titulo}</ItemBody>
-                        <ItemBody> {item.endereco} </ItemBody>
-                        <ItemBody>{item.inicio}</ItemBody>
-                        <ItemBody>{item.fim}</ItemBody>
-                        <ItemBody> 
-                            <LinkAction>
-                                <EditIcon color="#ADD96C"/>
-                            </LinkAction> 
-                            <LinkAction onClick={() => handleDelete(item.id)}>
-                                <TrashIcon color="#F23D4C" />
-                            </LinkAction>
-                        </ItemBody>
-                    </Line>
-                );
-            })
-        }
-
         return dataTable.map(item => {
             return (
 

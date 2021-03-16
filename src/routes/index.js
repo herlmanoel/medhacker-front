@@ -3,14 +3,16 @@ import { estaAutenticado } from "../services/Autenticacao/index";
 import GlobalStyle from '../styles/global';
 
 import Login from '../pages/Login';
-import ListagemUsuarios from '../pages/ListagemUsuarios';
-import ListagemEventos from '../pages/ListagemEventos';
-import ListagemProjetos from '../pages/ListagemProjetos';
-import FormUsuario from '../pages/FormUsuario';
-import FormEvento from '../pages/FormEvento';
-import FormProjeto from '../pages/FormProjeto';
+// import ListagemUsuarios from '../pages/ListagemUsuarios';
+// import ListagemEventos from '../pages/ListagemEventos';
+import FormUsuario from '../pages/Usuario/Form';
+import ListagemUsuarios from '../pages/Usuario/Listagem';
+import FormEvento from '../pages/Evento/Form';
+import ListagemEventos from '../pages/Evento/Listagem';
+import FormProjeto from '../pages/Projeto/Form';
 import Configuracoes from '../pages/Configuracoes';
 import Home from '../pages/Home';
+
 // Configuracoes
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -38,7 +40,6 @@ const Routes = () => (
         <Route exact path="/Home" component={Home} />
         <Route exact path="/listagemusuarios" component={ListagemUsuarios} />
         <Route exact path="/ListagemEventos" component={ListagemEventos} />
-        <Route exact path="/listagemprojetos" component={ListagemProjetos} />
         <PrivateRoute path="/app" component={() => <h1>Você está logado</h1>} />
       </Switch>
     </BrowserRouter>

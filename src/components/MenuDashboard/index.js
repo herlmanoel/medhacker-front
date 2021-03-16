@@ -5,11 +5,11 @@ import {
     Title,
 } from './style'
 import InputSearch from '../../components/InputSearch';
-import { useContext } from 'react';
-import { ContextListagem } from '../../context/Listagem';
+// import { useContext } from 'react';
+// import { ContextListagem } from '../../context/Listagem';
 
-export default function MenuDashboard() {
-    const { title } = useContext(ContextListagem);
+export default function MenuDashboard({ title }) {
+    // const { title } = useContext(ContextListagem);
     return (
         <Wrapper>
             <Content>
