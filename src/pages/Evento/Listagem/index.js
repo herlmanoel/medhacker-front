@@ -4,7 +4,7 @@ import {
 } from './style';
 
 import MenuVertical from '../../../components/MenuVertical';
-import Tabela from './Table';
+import Tabela from '../components/Table';
 import MenuDashboard from '../../../components/MenuDashboard';
 
 export default function Listagem() {

@@ -26,14 +26,16 @@ export default function TableComponent() {
     const [dataTable, setDataTable] = useState([]);
     const history = useHistory();
 
-    useEffect(() => {
-        document.title = 'Listagem de Usuários';
-
+    function getUsers() {
         (async function getDataUsuarios() {
             const { data } = await axios.get('usuarios');
             await setDataTable(data);
         })();
+    }
 
+    useEffect(() => {
+        document.title = 'Listagem de Usuários';
+        getUsers();
     }, []);
 
     const columns = [
@@ -54,6 +56,7 @@ export default function TableComponent() {
         })
             .then(result => console.log(result))
             .catch(err => console.log(err));
+        getUsers();
     }
 
     function BodyItems() {
@@ -64,10 +67,15 @@ export default function TableComponent() {
                     <ItemBody> {item.permissao} </ItemBody>
                     <ItemBody> Ativo </ItemBody>
                     <ItemBody>
-                        <LinkAction to="/">
+                        <LinkAction to={{
+                            pathname: "/formusuario",
+                            state: {
+                                id: item.id
+                            }
+                        }} >
                             <EditIcon color="#ADD96C" />
                         </LinkAction>
-                        <LinkAction to="/" onClick={() => handleDelete(item.id)}>
+                        <LinkAction to="#" onClick={() => handleDelete(item.id)}>
                             <TrashIcon color="#F23D4C" />
                         </LinkAction>
                     </ItemBody>
@@ -79,7 +87,7 @@ export default function TableComponent() {
     return (
         <>
             <WrapperTable>
-                <Table>
+                {dataTable.length === 0 ? <h2>Nenhum usuário cadastrado</h2> : <Table>
                     <Head>
                         <Line>
                             {columns.map(column => {
@@ -90,7 +98,7 @@ export default function TableComponent() {
                     <Body>
                         <BodyItems />
                     </Body>
-                </Table>
+                </Table>}
             </WrapperTable>
             <WrapperFooter>
                 <BlockButton>
