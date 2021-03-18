@@ -32,7 +32,7 @@ const Routes = () => (
     <GlobalStyle />
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={Login} />
+        <Route exact path="/login" component={Login} />
         <Route exact path="/formprojeto" component={FormProjeto} />
         <Route exact path="/formusuario" component={FormUsuario} />
         <Route exact path="/formevento" component={FormEvento} />

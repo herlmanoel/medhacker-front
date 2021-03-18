@@ -4,7 +4,12 @@ import {
     Input
 } from './style.js';
 
+
+
 export default function InputComponent({ label, name, type, functionChange, value}){
+
+    
+
     return (
        <Wrapper>
            <Label htmlFor={name}>{label}</Label>

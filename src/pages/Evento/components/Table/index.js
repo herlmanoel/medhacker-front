@@ -24,15 +24,17 @@ export default function TableComponent() {
     const [dataTable, setDataTable] = useState([]);
     const history = useHistory();
 
-    useEffect(() => {
-        document.title = 'Listagem de Eventos';
-
+    function getEventos() {
         (async function getDataUsuarios() {
             const { data } = await axios.get('eventos');
             await setDataTable(data);
             console.log(data);
         })();
+    }
 
+    useEffect(() => {
+        document.title = 'Listagem de Eventos';
+        getEventos();
     }, []);
 
     const columns = [
@@ -45,34 +47,40 @@ export default function TableComponent() {
 
     function handleButtonCadastrar(event) {
         event.preventDefault();
-        return history.push('/formusuario');
+        return history.push('/formevento');
     }
 
     async function handleDelete(id) {
-        await axios.delete(`/usuarios`, {
+        await axios.delete(`/eventos`, {
             data: { id: id }
         })
             .then(result => console.log(result))
             .catch(err => console.log(err));
+        getEventos();
     }
 
     function BodyItems() {
         return dataTable.map(item => {
             return (
                 <Line key={item.id}>
-                <ItemBody>{item.titulo}</ItemBody>
-                <ItemBody> {item.endereco} </ItemBody>
-                <ItemBody>{item.inicio}</ItemBody>
-                <ItemBody>{item.fim}</ItemBody>
-                <ItemBody> 
-                    <LinkAction>
-                        <EditIcon color="#ADD96C"/>
-                    </LinkAction> 
-                    <LinkAction to="#" onClick={() => handleDelete(item.id)}>
-                        <TrashIcon color="#F23D4C" />
-                    </LinkAction>
-                </ItemBody>
-            </Line>
+                    <ItemBody>{item.titulo}</ItemBody>
+                    <ItemBody> {item.endereco} </ItemBody>
+                    <ItemBody>{item.inicio}</ItemBody>
+                    <ItemBody>{item.fim}</ItemBody>
+                    <ItemBody>
+                        <LinkAction to={{
+                            pathname: "/formevento",
+                            state: {
+                                id: item.id
+                            }
+                        }}>
+                            <EditIcon color="#ADD96C" />
+                        </LinkAction>
+                        <LinkAction to="#" onClick={() => handleDelete(item.id)}>
+                            <TrashIcon color="#F23D4C" />
+                        </LinkAction>
+                    </ItemBody>
+                </Line>
             );
         })
     }
