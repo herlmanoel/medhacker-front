@@ -27,6 +27,7 @@ export default function TableComponent() {
     function getEventos() {
         (async function getDataUsuarios() {
             const { data } = await axios.get('eventos');
+            // data.fim = data.fim.toString().split("T", 1)[0];
             await setDataTable(data);
             console.log(data);
         })();
@@ -50,10 +51,9 @@ export default function TableComponent() {
         return history.push('/formevento');
     }
 
-    async function handleDelete(id) {
-        await axios.delete(`/eventos`, {
-            data: { id: id }
-        })
+    async function handleDelete(item) {
+        const id = item.id;
+        await axios.delete(`/eventos/${id}`)
             .then(result => console.log(result))
             .catch(err => console.log(err));
         getEventos();
@@ -61,12 +61,16 @@ export default function TableComponent() {
 
     function BodyItems() {
         return dataTable.map(item => {
+            let inicio = new Date(item.inicio);
+            let fim = new Date(item.fim);
+            inicio = `${inicio.getDate()}-${inicio.getMonth() + 1}-${inicio.getFullYear()}` ;
+            fim = `${fim.getDate()}-${fim.getMonth() + 1}-${fim.getFullYear()}` ;
             return (
                 <Line key={item.id}>
                     <ItemBody>{item.titulo}</ItemBody>
                     <ItemBody> {item.endereco} </ItemBody>
-                    <ItemBody>{item.inicio}</ItemBody>
-                    <ItemBody>{item.fim}</ItemBody>
+                    <ItemBody>{inicio}</ItemBody>
+                    <ItemBody>{fim}</ItemBody>
                     <ItemBody>
                         <LinkAction to={{
                             pathname: "/formevento",
@@ -76,7 +80,7 @@ export default function TableComponent() {
                         }}>
                             <EditIcon color="#ADD96C" />
                         </LinkAction>
-                        <LinkAction to="#" onClick={() => handleDelete(item.id)}>
+                        <LinkAction to="#" onClick={(item) => handleDelete(item)}>
                             <TrashIcon color="#F23D4C" />
                         </LinkAction>
                     </ItemBody>

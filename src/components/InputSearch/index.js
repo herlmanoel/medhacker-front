@@ -3,26 +3,23 @@ import {
     Input,
     WrapperIcon,
 } from './style.js';
-// import {useContext, useState} from 'react';
+import { useState } from 'react';
 import { Search } from 'react-feather';
-// import { ContextListagem } from '../../context/Listagem';
+import axios from '../../services';
 export default function InputComponent({ name, type }) {
-    // const [valueInput, setValueInput] = useState('');
-    // const { dataTable, setDataTable } = useContext(ContextListagem);
-
-    // async function handleOnChange(event) {
-    //     const { value } = event.target;
-    //     setValueInput(value);
-    //     var s = "foo";
-    //     console.log(s.indexOf("oo"));
-    // }
-
+    const [campo, setCampo] = useState('');
+    async function handlePesquisa(event) {
+        setCampo(event.target.value);
+        await axios.get(`usuariospesquisa/${campo}`)
+            .then(result => console.log(result))
+        console.log(campo);
+    }
     return (
         <Wrapper>
             <WrapperIcon>
                 <Search />
             </WrapperIcon>
-            <Input type={type} id={name} name={name}  placeholder="Pesquisar" />
+            <Input type={type} id={name} name={name} value={campo} onChange={(event) => handlePesquisa(event)}  placeholder="Pesquisar" />
         </Wrapper>
     );
 }

@@ -22,7 +22,7 @@ export const ItemBody = styled.td`
     ${padding}
     font-weight: 300;
     border-top: 1px solid var(--color-line-in-white);
-    /* width: auto; */
+    max-width: 25rem;
 `;
 
 export const Name = styled.strong`
