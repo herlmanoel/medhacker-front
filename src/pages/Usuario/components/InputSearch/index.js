@@ -10,7 +10,7 @@ import { Contextusuarios } from '../../context';
 
 export default function InputComponent({ name, type }) {
     const [campo, setCampo] = useState('');
-    const { dataUsuarios, setDataUsuarios } = useContext(Contextusuarios);
+    const { setDataUsuarios } = useContext(Contextusuarios);
 
     async function handlePesquisa(event) {
         const { value } = event.target;
