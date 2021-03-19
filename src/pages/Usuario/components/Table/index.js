@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import {
@@ -21,11 +21,17 @@ import {
 import ButtonComponent from '../../../../components/Button';
 
 import axios from '../../../../services';
-
+import { Contextusuarios } from '../../context';
 export default function TableComponent() {
     const [dataTable, setDataTable] = useState([]);
     const history = useHistory();
 
+    const { dataUsuarios } = useContext(Contextusuarios);
+    
+    useEffect(() => {
+        setDataTable(dataUsuarios);
+    }, [ dataUsuarios ]);
+    
     function getUsers() {
         (async function getDataUsuarios() {
             const { data } = await axios.get('usuarios');
@@ -60,6 +66,7 @@ export default function TableComponent() {
     }
 
     function BodyItems() {
+        
         return dataTable.map(item => {
             return (
                 <Line key={item.id}>

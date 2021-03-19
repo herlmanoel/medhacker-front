@@ -5,13 +5,13 @@ import {
 } from './style.js';
 import { useState } from 'react';
 import { Search } from 'react-feather';
-// import axios from '../../services';
+import axios from '../../../../services';
 export default function InputComponent({ name, type }) {
     const [campo, setCampo] = useState('');
     async function handlePesquisa(event) {
         setCampo(event.target.value);
-        // await axios.get(`usuariospesquisa/${campo}`)
-        //     .then(result => console.log(result))
+        await axios.get(`usuariospesquisa/${campo}`)
+            .then(result => console.log(result))
         console.log(campo);
     }
     return (

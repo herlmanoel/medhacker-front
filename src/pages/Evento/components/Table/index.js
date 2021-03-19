@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import {
@@ -19,16 +19,21 @@ import {
 import ButtonComponent from '../../../../components/Button';
 
 import axios from '../../../../services';
+import { ContexEventos } from '../../context';
 
 export default function TableComponent() {
     const [dataTable, setDataTable] = useState([]);
     const history = useHistory();
-
+    const { dataEventos } = useContext(ContexEventos);
+    useEffect(() => {
+        setDataTable(dataEventos);
+    }, [dataEventos]);
     function getEventos() {
         (async function getDataUsuarios() {
             const { data } = await axios.get('eventos');
             // data.fim = data.fim.toString().split("T", 1)[0];
             await setDataTable(data);
+
             console.log(data);
         })();
     }
@@ -63,8 +68,8 @@ export default function TableComponent() {
         return dataTable.map(item => {
             let inicio = new Date(item.inicio);
             let fim = new Date(item.fim);
-            inicio = `${inicio.getDate()}-${inicio.getMonth() + 1}-${inicio.getFullYear()}` ;
-            fim = `${fim.getDate()}-${fim.getMonth() + 1}-${fim.getFullYear()}` ;
+            inicio = `${inicio.getDate()}-${inicio.getMonth() + 1}-${inicio.getFullYear()}`;
+            fim = `${fim.getDate()}-${fim.getMonth() + 1}-${fim.getFullYear()}`;
             return (
                 <Line key={item.id}>
                     <ItemBody>{item.titulo}</ItemBody>
