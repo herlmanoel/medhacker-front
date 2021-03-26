@@ -17,12 +17,9 @@ export default function InputComponent({ name, type }) {
         setCampo(value);
     }
     async function getDataUsuariosByName(){
-        console.log("AQUI")
         await axios.get(`usuariospesquisa/${campo}`)
             .then(result => {
-                
                 const { data } = result;
-                console.log(data)
                 return setDataUsuarios(data);
         });
     }

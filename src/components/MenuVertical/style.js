@@ -7,6 +7,7 @@ import {
     User,
     Folder,
     Grid,
+    LogOut
 } from 'react-feather';
 
 export const Menu = styled.nav`
@@ -49,6 +50,7 @@ export const SettingsIconGrey = styled(Settings)``;
 export const UserIconGrey = styled(User)``;
 export const FolderIconGrey = styled(Folder)``;
 export const GridIconGrey = styled(Grid)``;
+export const LogOutIconGrey = styled(LogOut)``;
 
 export const HomeIconWhite = styled(Home)`
     display: none;
@@ -63,6 +65,10 @@ export const FolderIconWhite = styled(Folder)`
     display: none;
 `;
 export const GridIconWhite = styled(Grid)`
+    display: none;
+`;
+
+export const LogOutIconWhite = styled(LogOut)`
     display: none;
 `;
 
@@ -85,7 +91,8 @@ export const Item = styled(NavLink).attrs({ activeClassName })`
         ${SettingsIconGrey},
         ${UserIconGrey},
         ${GridIconGrey},
-        ${FolderIconGrey} {
+        ${FolderIconGrey},
+        ${LogOutIconGrey} {
             display: none;
         }
 
@@ -93,7 +100,8 @@ export const Item = styled(NavLink).attrs({ activeClassName })`
         ${SettingsIconWhite},
         ${UserIconWhite},
         ${GridIconWhite},
-        ${FolderIconWhite} {
+        ${FolderIconWhite},
+        ${LogOutIconWhite} {
             display: block;
         }
     }

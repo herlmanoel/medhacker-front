@@ -38,6 +38,7 @@ export default function FormUsuario() {
 
     async function handleSubmit(event) {
         event.preventDefault();
+        console.log(usuario);
         await axios.post('usuarios', usuario).catch((err) => console.log(err));
         history.push('/listagemusuarios');
     }

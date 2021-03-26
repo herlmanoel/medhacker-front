@@ -1,4 +1,5 @@
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
 
 import {
     Wrapper,
@@ -16,43 +17,20 @@ import {
     ContentCheckbox,
     Checkbox,
 } from './style.js';
-
 import Input from '../../components/Input';
 import imgLogo from '../../assets/img/logo-colorida.jpg';
-// import axios from '../../services/index';
-
-import { useState, useContext, useEffect } from "react";
 import { Context } from '../../context/AuthProvider';
+// import { login, storeToken } from "../../services/Autenticacao/index.js";
+// import axios from '../../services';
 
-export default function FormUsuario() {
+export default function Login() {
+    const { handleLogin } = useContext(Context);   
+    const [senha, setSenha] = useState('00000');
+    const [email, setEmail] = useState('Leo@gmail.com');
 
     useEffect(() => {
         document.title = 'Login';
-    }, []);
-
-    const { athenticate } = useContext(Context);
-    let history = useHistory();
-    console.log(athenticate);
-
-    const [senha, setSenha] = useState('');
-    const [email, setEmail] = useState('');
-
-    async function handleSubmit(event) {
-        event.preventDefault();
-        return history.push('/listagemusuarios');
-        // const dados = await axios.post('autenticar', {
-        //     email, senha
-        // });
-        // // console.log(dados);
-        // if (dados) {
-        //     const token = `Bearer ${dados.data.token}`;
-        //     await localStorage.setItem('@backend/token', JSON.stringify(token));
-        //     console.log(dados);
-        //     return history.push('/Dashboard');
-        // }
-
-
-    }
+    }, []);   
 
     return (
         <Wrapper>
@@ -63,8 +41,8 @@ export default function FormUsuario() {
                         <ImgLogo src={imgLogo} />
                     </ImgBlock>
                     <Title>Login</Title>
-                    <FormLogin method="POST" onSubmit={(event) => handleSubmit(event)}>
-                        
+                    <FormLogin method="POST">
+
                         <Input name="email" label="E-mail ou username"
                             functionChange={(event) => setEmail(event.target.value)} value={email}
                         />
@@ -79,7 +57,7 @@ export default function FormUsuario() {
                             <TextoSub>Esqueceu sua senha?</TextoSub>
                         </ContentText>
 
-                        <Button type="submit"> Entrar </Button>
+                        <Button onClick={(event) => handleLogin(event, { email, senha })}> Entrar </Button>
 
                         <Texto>Ainda não tem uma conta? <Link to="/formusuario">Cadastre-se.</Link></Texto>
                     </FormLogin>

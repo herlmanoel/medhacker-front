@@ -15,18 +15,28 @@ import {
     UserIconWhite,
     FolderIconWhite,
     GridIconWhite,
+    LogOutIconWhite,
+    LogOutIconGrey,
 } from './style';
 
 import logoImg from '../../assets/img/MedHacker.svg';
 import IconUser from '../../components/IconUser';
+import { Context } from '../../context/AuthProvider';
+import { useContext } from 'react';
 
 export default function MenuVertical() {
+    const { authorized, setAuthorized } = useContext(Context);
+
+    async function handleSair() {
+        await window.localStorage.setItem('token', '');
+        setAuthorized(false);
+    }
 
     return (
         <Menu>
             <HeaderMenu>
                 <LogoImg src={logoImg} />
-                <BlockItem >
+                <BlockItem>
                     <Item exact to="/Home">
                         <HomeIconGrey color="#A3A3A5" />
                         <HomeIconWhite color="#fff" /> Home
@@ -54,6 +64,12 @@ export default function MenuVertical() {
                     <Item exact to="/Configuracoes">
                         <SettingsIconGrey color="#A3A3A5" />
                         <SettingsIconWhite color="#fff" /> Configurações
+                    </Item>
+                </BlockItem>
+                <BlockItem >
+                    <Item exact to="/sair" onClick={() => handleSair()}>
+                        <LogOutIconGrey color="#A3A3A5" />
+                        <LogOutIconWhite color="#fff" /> Sair
                     </Item>
                 </BlockItem>
             </HeaderMenu>
