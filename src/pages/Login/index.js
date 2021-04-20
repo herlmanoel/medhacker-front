@@ -24,10 +24,10 @@ import { Context } from '../../context/AuthProvider';
 // import axios from '../../services';
 
 export default function Login() {
-    const { handleLogin } = useContext(Context);   
-    const [senha, setSenha] = useState('00000');
-    const [email, setEmail] = useState('Leo@gmail.com');
-
+    const { handleLogin } = useContext(Context);
+    const [email, setEmail] = useState('');   
+    const [senha, setSenha] = useState('');
+    
     useEffect(() => {
         document.title = 'Login';
     }, []);   

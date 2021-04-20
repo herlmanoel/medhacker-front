@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import {
     Table,
@@ -13,7 +13,6 @@ import {
     BlockButton,
     EditIcon,
     TrashIcon,
-    UsersIcon,
     LinkAction,
 } from './style.js';
 
@@ -21,78 +20,75 @@ import ButtonComponent from '../../../../components/Button';
 
 import axios from '../../../../services';
 import { ContexEventos } from '../../context';
+import Pagination from '../../../../components/Pagination/index.js';
 
 export default function TableComponent() {
     const [dataTable, setDataTable] = useState([]);
     const history = useHistory();
+    const location = useLocation();
     const { dataEventos } = useContext(ContexEventos);
+
     useEffect(() => {
         setDataTable(dataEventos);
     }, [dataEventos]);
-    function getEventos() {
-        (async function getDataUsuarios() {
-            const { data } = await axios.get('eventos');
-            // data.fim = data.fim.toString().split("T", 1)[0];
-            await setDataTable(data);
 
+    function getGrupos() {
+        (async () => {
+            const id_evento = location.state?.id;
+            console.log('Table IdEvento: ', id_evento);
+            const URL = `gruposporevento/${id_evento}`;
+            const { data } = await axios.get(URL);
+            await setDataTable(data);
             console.log(data);
         })();
     }
 
     useEffect(() => {
-        document.title = 'Listagem de Eventos';
-        getEventos();
+        document.title = 'Listagem de Grupos';
+        getGrupos();
     }, []);
 
     const columns = [
-        { id: 1, title: 'Titulo' },
-        { id: 4, title: 'Endereço' },
-        { id: 5, title: 'Início' },
-        { id: 6, title: 'Fim' },
-        { id: 7, title: 'Grupos' },
-        { id: 8, title: 'Ações' },
+        { id: 1, title: 'Nome' },
+        { id: 4, title: 'Username' },
+        { id: 5, title: 'Descrição' },
+        { id: 6, title: 'Ações' },
     ];
 
     function handleButtonCadastrar(event) {
         event.preventDefault();
-        return history.push('/formevento');
+        const id_evento = location.state.id;
+
+        return history.push({
+            pathname: '/FormGrupo',
+            state: {
+                id: id_evento
+            }
+        });
     }
 
     async function handleDelete(item) {
         const id = item.id;
-        await axios.delete(`/eventos/${id}`)
+        const URL = `grupos/${id}`;
+        await axios.delete(URL)
             .then(result => console.log(result))
             .catch(err => console.log(err));
-        getEventos();
+        getGrupos();
     }
 
     function BodyItems() {
         return dataTable.map(item => {
-            let inicio = new Date(item.inicio);
-            let fim = new Date(item.fim);
-            inicio = `${inicio.getDate()}-${inicio.getMonth() + 1}-${inicio.getFullYear()}`;
-            fim = `${fim.getDate()}-${fim.getMonth() + 1}-${fim.getFullYear()}`;
             return (
                 <Line key={item.id}>
-                    <ItemBody>{item.titulo}</ItemBody>
-                    <ItemBody> {item.endereco} </ItemBody>
-                    <ItemBody>{inicio}</ItemBody>
-                    <ItemBody>{fim}</ItemBody>
+                    <ItemBody>{item.nome}</ItemBody>
+                    <ItemBody> {item.username} </ItemBody>
+                    <ItemBody>{item.descricao}</ItemBody>
                     <ItemBody>
                         <LinkAction to={{
-                            pathname: "/ListagemGrupos",
+                            pathname: "/FormGrupo",
                             state: {
-                                id: item.id
-                            }
-                        }}>
-                            <UsersIcon color="#3B87A6" />
-                        </LinkAction>
-                    </ItemBody>
-                    <ItemBody>
-                        <LinkAction to={{
-                            pathname: "/ListagemGrupos",
-                            state: {
-                                id: item.id
+                                id_evento: location.state.id,
+                                id_grupo: item.id
                             }
                         }}>
                             <EditIcon color="#ADD96C" />
@@ -124,6 +120,7 @@ export default function TableComponent() {
             </WrapperTable>
             <WrapperFooter>
                 <BlockButton>
+                    {/* <Pagination /> */}
                     <ButtonComponent onClick={(event) => handleButtonCadastrar(event)} text="Cadastrar" />
                 </BlockButton>
             </WrapperFooter>

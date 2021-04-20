@@ -10,14 +10,14 @@ function AuthProvider({ children }) {
     console.log('Login ', authorized);
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        const token = JSON.parse(localStorage.getItem('token'));
+        console.log('localStorage.getItem()', JSON.parse(localStorage.getItem('token')));
 
         if (token) {
-            axios.defaults.headers.authorization = `Bearer ${JSON.parse(token)}`;
+            axios.defaults.headers.authorization = `Bearer ${token}`;
             setAuthorized(true);
         }
-        console.log('loading  ', loading);
-        setTimeout(() => setLoading(false), 2000);
+        setLoading(false)
     }, []);
 
     async function handleLogin(event, { email, senha }) {
@@ -25,18 +25,12 @@ function AuthProvider({ children }) {
         const { data: { token } } = await axios.post('/autenticar', { email, senha });
 
         localStorage.setItem('token', JSON.stringify(token));
-        axios.defaults.headers['authorization'] = `Bearer ${token}`;
-        console.log('handleLogin: ', axios.defaults.headers.authorization);
-        axios.defaults.headers.common = {
-            'authorization': 'Bearer ' + token
-        };
-        console.log(axios.defaults.headers.common);
+        axios.defaults.headers.authorization = `Bearer ${token}`;
         setAuthorized(true);        
         history.push('/listagemusuarios');
     }
 
-    async function handleLogout(event) {
-        event.preventDefault();
+    async function handleLogout() {
         setAuthorized(false);
         localStorage.removeItem('token');
         axios.defaults.headers.authorization = undefined;
@@ -44,7 +38,7 @@ function AuthProvider({ children }) {
     }
 
     return (
-        <Context.Provider value={{ authorized, setAuthorized, loading, handleLogin }}>
+        <Context.Provider value={{ authorized, setAuthorized, loading, handleLogin, handleLogout }}>
             {children}
         </Context.Provider>
     );

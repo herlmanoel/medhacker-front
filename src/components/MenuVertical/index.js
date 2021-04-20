@@ -25,12 +25,12 @@ import { Context } from '../../context/AuthProvider';
 import { useContext } from 'react';
 
 export default function MenuVertical() {
-    const { authorized, setAuthorized } = useContext(Context);
+    const { handleLogout } = useContext(Context);
 
-    async function handleSair() {
-        await window.localStorage.setItem('token', '');
-        setAuthorized(false);
-    }
+    // async function handleSair() {
+    //     await window.localStorage.setItem('token', '');
+    //     setAuthorized(false);
+    // }
 
     return (
         <Menu>
@@ -67,7 +67,7 @@ export default function MenuVertical() {
                     </Item>
                 </BlockItem>
                 <BlockItem >
-                    <Item exact to="/sair" onClick={() => handleSair()}>
+                    <Item exact to="/sair" onClick={() => handleLogout()}>
                         <LogOutIconGrey color="#A3A3A5" />
                         <LogOutIconWhite color="#fff" /> Sair
                     </Item>

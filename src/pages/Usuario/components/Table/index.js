@@ -18,13 +18,20 @@ import {
     LinkAction,
 } from './style.js';
 
-import ButtonComponent from '../../../../components/Button';
-
 import axios from '../../../../services';
 import { Contextusuarios } from '../../context';
+import ButtonComponent from '../../../../components/Button';
+import Pagination from '../../../../components/Pagination';
+
+const LIMIT = 10;
 
 export default function TableComponent() {
     const [dataTable, setDataTable] = useState([]);
+    const [paginationData, setPaginationData] = useState({
+        limit: LIMIT,
+        total: 0,
+    });
+    const [offset, setOffset] = useState(0);
     const history = useHistory();
     const { dataUsuarios } = useContext(Contextusuarios);
     const columns = [
@@ -41,16 +48,16 @@ export default function TableComponent() {
     useEffect(() => {
         document.title = 'Listagem de Usuários';
         getUsers();
-    }, []);
+    }, [offset]);
 
     function getUsers() {
-
         (async function getDataUsuarios() {
-            await console.log(" AXIOS: ", axios.defaults)
-            // const token = JSON.parse(localStorage.getItem('token'));
-            await console.log(axios.defaults);
-            const { data } = await axios.get('usuarios');
-            await setDataTable(data);
+            const URL = `usuarioslimit/${LIMIT}/${offset}`;
+            const data = await axios.get(URL);
+            const { users, count } = data.data;
+            await setDataTable(users);
+            setPaginationData({ ...paginationData, total: count });
+            console.log({ users, count });
         })();
     }
 
@@ -118,6 +125,14 @@ export default function TableComponent() {
                     </Table>}
             </WrapperTable>
             <WrapperFooter>
+                {paginationData.limit &&
+                    <Pagination
+                        limit={LIMIT}
+                        total={paginationData.total}
+                        offset={offset}
+                        setOffset={setOffset}
+                    />
+                }
                 <BlockButton>
                     <ButtonComponent onClick={(event) => handleButtonCadastrar(event)} text="Cadastrar" />
                 </BlockButton>

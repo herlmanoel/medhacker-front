@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Edit, Trash } from 'react-feather';
+import { Edit, Trash, Users } from 'react-feather';
 
 export const Table = styled.table`
     width: 100%;
@@ -54,7 +54,7 @@ export const BlockButton = styled.div`
 
 export const EditIcon = styled(Edit)``;
 export const TrashIcon = styled(Trash)``;
-
+export const UsersIcon = styled(Users)``;
 export const LinkAction = styled(Link)`
     /* text-decoration: none; */
     cursor: pointer;
