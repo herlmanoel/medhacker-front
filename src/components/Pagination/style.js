@@ -15,8 +15,15 @@ export const Ul = styled.ul`
 
 export const Li = styled.li`
     & + & {
-        margin-left: 1rem;
+        margin-left: 1.5rem;
     }
+`;
+
+const ButtonLiActive = `
+    font-weight: bold !important;
+    width: 4rem;
+    height: 4rem;
+    box-shadow: 0px 2px 25px 2px #AFB3B5;
 `;
 
 export const ButtonLi = styled.button`
@@ -32,13 +39,12 @@ export const ButtonLi = styled.button`
     border-radius: 50%;
     font-weight: 300 !important;
     color: var(--color-texto-primario);
+    cursor: pointer;
 
-    ${(props) => props.active ?  
-    `
-    font-weight: bold !important;
-    width: 4rem;
-    height: 4rem;
-    box-shadow: 0px 2px 25px 2px #AFB3B5;
-    ` : `` }
-    
+    ${(props) => props.active ? ButtonLiActive : `` }
+
+    &:hover {
+        box-shadow: 0px 2px 25px 2px #BBC5C9;
+        font-weight: bold !important;
+    }
 `;

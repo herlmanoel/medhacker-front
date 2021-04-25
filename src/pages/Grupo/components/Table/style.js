@@ -46,7 +46,9 @@ export const WrapperTable = styled.div`
 export const WrapperFooter = styled.div`
     width: 90%;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 50rem;
     z-index: 10;
 `
 export const BlockButton = styled.div`

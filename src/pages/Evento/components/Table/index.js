@@ -21,20 +21,29 @@ import ButtonComponent from '../../../../components/Button';
 
 import axios from '../../../../services';
 import { ContexEventos } from '../../context';
+import Pagination from '../../../../components/Pagination';
+
+const LIMIT = 10;
 
 export default function TableComponent() {
     const [dataTable, setDataTable] = useState([]);
     const history = useHistory();
     const { dataEventos } = useContext(ContexEventos);
+    const [paginationData, setPaginationData] = useState({
+        limit: LIMIT,
+        total: 0,
+    });
+    const [offset, setOffset] = useState(0);
     useEffect(() => {
         setDataTable(dataEventos);
     }, [dataEventos]);
     function getEventos() {
         (async function getDataUsuarios() {
-            const { data } = await axios.get('eventos');
-            // data.fim = data.fim.toString().split("T", 1)[0];
-            await setDataTable(data);
-
+            const URL = `eventoslimit/${LIMIT}/${offset}`;
+            const data = await axios.get(URL);
+            const { events, count } = data.data;
+            await setDataTable(events);
+            setPaginationData({ ...paginationData, total: count });
             console.log(data);
         })();
     }
@@ -123,6 +132,14 @@ export default function TableComponent() {
                 </Table>
             </WrapperTable>
             <WrapperFooter>
+                {paginationData.limit &&
+                    <Pagination
+                        limit={LIMIT}
+                        total={paginationData.total}
+                        offset={offset}
+                        setOffset={setOffset}
+                    />
+                }
                 <BlockButton>
                     <ButtonComponent onClick={(event) => handleButtonCadastrar(event)} text="Cadastrar" />
                 </BlockButton>

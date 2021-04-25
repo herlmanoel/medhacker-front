@@ -21,13 +21,17 @@ import ButtonComponent from '../../../../components/Button';
 import axios from '../../../../services';
 import { ContexEventos } from '../../context';
 import Pagination from '../../../../components/Pagination/index.js';
-
+const LIMIT = 10;
 export default function TableComponent() {
     const [dataTable, setDataTable] = useState([]);
     const history = useHistory();
     const location = useLocation();
     const { dataEventos } = useContext(ContexEventos);
-
+    const [paginationData, setPaginationData] = useState({
+        limit: LIMIT,
+        total: 0,
+    });
+    const [offset, setOffset] = useState(0);
     useEffect(() => {
         setDataTable(dataEventos);
     }, [dataEventos]);
@@ -36,9 +40,11 @@ export default function TableComponent() {
         (async () => {
             const id_evento = location.state?.id;
             console.log('Table IdEvento: ', id_evento);
-            const URL = `gruposporevento/${id_evento}`;
-            const { data } = await axios.get(URL);
-            await setDataTable(data);
+            const URL = `gruposlimit/${id_evento}/${LIMIT}/${offset}`;
+            const data = await axios.get(URL);
+            const { groups, count } = data.data;
+            await setDataTable(groups);
+            setPaginationData({ ...paginationData, total: count });
             console.log(data);
         })();
     }
@@ -119,8 +125,15 @@ export default function TableComponent() {
                 </Table>
             </WrapperTable>
             <WrapperFooter>
+                {paginationData.limit &&
+                    <Pagination
+                        limit={LIMIT}
+                        total={paginationData.total}
+                        offset={offset}
+                        setOffset={setOffset}
+                    />
+                }
                 <BlockButton>
-                    {/* <Pagination /> */}
                     <ButtonComponent onClick={(event) => handleButtonCadastrar(event)} text="Cadastrar" />
                 </BlockButton>
             </WrapperFooter>
