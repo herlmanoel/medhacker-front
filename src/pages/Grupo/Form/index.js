@@ -20,9 +20,8 @@ export default function FormGrupo() {
     const history = useHistory();
     const location = useLocation();
     const [edit, setEdit] = useState({ id: 0, textButton: '', state: false });
-
     const [grupo, setGrupo] = useState({
-        id_evento: '',
+        id_evento: location.state?.id,
         nome: '',
         descricao: '',
         username: '',
@@ -31,11 +30,12 @@ export default function FormGrupo() {
 
     async function handleSubmit(event) {
         event.preventDefault();
-        // const result = await axios.post('grupos', grupo);
-        // console.log('result', result);
-        const idEvento = location.state?.id_evento;
+        const idEvento = location.state?.id;
+        console.log(grupo);
+        await axios.post('grupos', grupo);
         console.log("location: ", location);
         console.log('idEvento do Form: ', idEvento);
+
         return history.push({
             pathname: '/ListagemGrupos',
             state: {
@@ -62,20 +62,19 @@ export default function FormGrupo() {
 
     function handleOnChange(event) {
         const { name, value } = event.target;
-        // console.log({ name, value });
+        console.log({ name, value });
         setGrupo({ ...grupo, [name]: value });
         console.log(grupo);
     }
 
     useEffect(() => {
-        const idEvento = location.state?.id_evento;
+        // const idEvento = location.state?.id_evento;
         const idGrupo = location.state?.id_grupo;
-        console.log(idGrupo)
-        console.log(idEvento)
-        setGrupo({ ...grupo, id_evento: idEvento });
-
+        // console.log(idGrupo)
+        // console.log(idEvento)
+        // setGrupo({ ...grupo, id_evento: idEvento });
+        // console.log(grupo);
         if (idGrupo) {
-
             (async () => {
                 const URL = `grupos/${idGrupo}`;
                 await axios.get(URL)
@@ -86,7 +85,6 @@ export default function FormGrupo() {
                     })
                     .catch(err => console.log(err));
             })();
-
             setEdit({ id: idGrupo, textButton: 'Editar', state: true });
         }
     }, [location]);

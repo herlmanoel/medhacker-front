@@ -41,17 +41,9 @@ export default function TableComponent() {
         { id: 4, title: 'Ações' },
     ];
 
-    useEffect(() => {
-        setDataTable(dataUsuarios);
-    }, [dataUsuarios]);
-
-    useEffect(() => {
-        document.title = 'Listagem de Usuários';
-        getUsers();
-    }, [offset]);
-
-    function getUsers() {
-        (async function getDataUsuarios() {
+    
+    const getUsers = () => {
+        (async () => {
             const URL = `usuarioslimit/${LIMIT}/${offset}`;
             const data = await axios.get(URL);
             const { users, count } = data.data;
@@ -60,6 +52,15 @@ export default function TableComponent() {
             console.log({ users, count });
         })();
     }
+
+    useEffect(() => {
+        setDataTable(dataUsuarios);
+    }, [dataUsuarios]);
+
+    useEffect(() => {
+        document.title = 'Listagem de Usuários';
+        getUsers();
+    }, []);
 
     function handleButtonCadastrar(event) {
         event.preventDefault();

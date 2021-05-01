@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useCallback } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import {
@@ -34,11 +34,17 @@ export default function TableComponent() {
     const [offset, setOffset] = useState(0);
     useEffect(() => {
         setDataTable(dataEventos);
+        console.log('location: ', location);
     }, [dataEventos]);
 
-    function getGrupos() {
+    // function getGrupos() {
+       
+    // }
+
+    const getGrupos = () => {
         (async () => {
             const id_evento = location.state?.id;
+            console.log("evento ", id_evento);
             console.log('Table IdEvento: ', id_evento);
             const URL = `gruposlimit/${id_evento}/${LIMIT}/${offset}`;
             const data = await axios.get(URL);
@@ -52,7 +58,7 @@ export default function TableComponent() {
     useEffect(() => {
         document.title = 'Listagem de Grupos';
         getGrupos();
-    }, []);
+    }, [  ]);
 
     const columns = [
         { id: 1, title: 'Nome' },
@@ -64,6 +70,7 @@ export default function TableComponent() {
     function handleButtonCadastrar(event) {
         event.preventDefault();
         const id_evento = location.state.id;
+        console.log('handleButtonCadastrar: ',id_evento)
 
         return history.push({
             pathname: '/FormGrupo',

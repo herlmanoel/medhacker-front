@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useCallback, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import {
@@ -34,10 +34,12 @@ export default function TableComponent() {
         total: 0,
     });
     const [offset, setOffset] = useState(0);
+
     useEffect(() => {
         setDataTable(dataEventos);
     }, [dataEventos]);
-    function getEventos() {
+
+    const getEventos = useCallback(() => {
         (async function getDataUsuarios() {
             const URL = `eventoslimit/${LIMIT}/${offset}`;
             const data = await axios.get(URL);
@@ -46,7 +48,7 @@ export default function TableComponent() {
             setPaginationData({ ...paginationData, total: count });
             console.log(data);
         })();
-    }
+    }, [offset, paginationData]);
 
     useEffect(() => {
         document.title = 'Listagem de Eventos';
