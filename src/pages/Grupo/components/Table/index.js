@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useCallback } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import {
@@ -34,12 +34,8 @@ export default function TableComponent() {
     const [offset, setOffset] = useState(0);
     useEffect(() => {
         setDataTable(dataEventos);
-        console.log('location: ', location);
     }, [dataEventos]);
 
-    // function getGrupos() {
-       
-    // }
 
     const getGrupos = () => {
         (async () => {
@@ -58,7 +54,7 @@ export default function TableComponent() {
     useEffect(() => {
         document.title = 'Listagem de Grupos';
         getGrupos();
-    }, [  ]);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const columns = [
         { id: 1, title: 'Nome' },

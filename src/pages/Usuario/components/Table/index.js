@@ -60,7 +60,7 @@ export default function TableComponent() {
     useEffect(() => {
         document.title = 'Listagem de Usuários';
         getUsers();
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     function handleButtonCadastrar(event) {
         event.preventDefault();

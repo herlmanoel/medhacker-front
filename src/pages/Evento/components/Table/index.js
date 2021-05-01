@@ -53,7 +53,7 @@ export default function TableComponent() {
     useEffect(() => {
         document.title = 'Listagem de Eventos';
         getEventos();
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const columns = [
         { id: 1, title: 'Titulo' },
