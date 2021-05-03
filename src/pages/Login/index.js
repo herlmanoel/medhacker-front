@@ -46,7 +46,7 @@ export default function Login() {
                         <Input name="email" label="E-mail ou username"
                             functionChange={(event) => setEmail(event.target.value)} value={email}
                         />
-                        <Input name="senha" label="Senha"
+                        <Input name="senha" label="Senha" type="password"
                             functionChange={(event) => setSenha(event.target.value)} value={senha}
                         />
 
