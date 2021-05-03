@@ -8,12 +8,12 @@ import {
     HomeIconGrey,
     SettingsIconGrey,
     UserIconGrey,
-    FolderIconGrey,
+    // FolderIconGrey,
     GridIconGrey,
     HomeIconWhite,
     SettingsIconWhite,
     UserIconWhite,
-    FolderIconWhite,
+    // FolderIconWhite,
     GridIconWhite,
     LogOutIconWhite,
     LogOutIconGrey,
@@ -54,12 +54,12 @@ export default function MenuVertical() {
                         <UserIconWhite color="#fff" /> Usuários
                     </Item>
                 </BlockItem>
-                <BlockItem >
+                {/* <BlockItem >
                     <Item exact to="/listagemprojetos">
                         <FolderIconGrey color="#A3A3A5" />
                         <FolderIconWhite color="#fff" /> Projetos
                     </Item>
-                </BlockItem>
+                </BlockItem> */}
                 <BlockItem >
                     <Item exact to="/Configuracoes">
                         <SettingsIconGrey color="#A3A3A5" />
