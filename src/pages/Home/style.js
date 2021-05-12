@@ -7,14 +7,23 @@ export const Wrapper = styled.div`
     align-items: flex-start;
     /* background-color: pink; */
 `;
+export const Header = styled.div`
+    width: 86vw;
+    /* height: 100vh; */
+    display: flex;
+    flex-direction: column;
+    padding-left: 3rem;
+    /* background-color: pink; */
+`;
 
 export const WrapperMain = styled.div`
     width: 86vw;
-    /* background-color: red; */
+    height: 100vh;
+    padding: 0 2rem;    
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 2rem;
-    /* width: 90%; */
+    justify-content: space-between !important;
+
     flex-direction: column;
+    align-items: center;
+    
 `;

@@ -1,23 +1,21 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-    margin: 1rem 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 3rem;
-    width: 15vw;
-    height: 20vh;
-    padding: 0 3rem;
-    background-color: none;
+    gap: 2rem;
+    width: auto;
+    max-width: 500px;
+    max-height: 300px;
+    padding: 5rem;
+    background-color: #319CC7;
     border-radius: 1rem;
-    margin-right: 2rem;
-    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.3);
+    margin: 1rem;
 `;
 
 export const WrapperText = styled.div`
     display: flex;
-    gap: 3rem;
     flex-direction: column;
     justify-content:  space-between !important;
 `;
@@ -26,10 +24,12 @@ export const ImgCard = styled.img`
     height: 60%;
 `;
 
-export const TitleCard = styled.h3`
-    color: #000;
-    white-space: normal;
-    line-break: auto;
+export const TitleCard = styled.h1`
+    display: inline;
+    max-width: 300px;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 500;
 `;
 
 
@@ -39,8 +39,8 @@ export const WrapperButton = styled.div`
 
 export const ButtonCard = styled.button`
     display: block;
-    width: ${(props) => props.width ? `${props.width}%` : `70%`};
-    height: ${(props) => props.height ? `${props.height}rem` : `3.6rem`};
+    width: ${(props) => props.width ? `${props.width}%` : `90%`};
+    height: ${(props) => props.height ? `${props.height}rem` : `4.6rem`};
     border-radius: 0.8rem;
     background: ${(props) => props.color ? props.color : `#FFF`};
     cursor: pointer;

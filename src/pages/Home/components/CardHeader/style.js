@@ -2,11 +2,9 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
     display: flex;
-    /* padding: 3rem; */
+    flex-wrap: wrap;
     width: 100%;
-    /* background-color: blue; */
-    overflow-x: scroll;
-    overflow-y: hidden;
-    /* white-space: nowrap; */
+    height: 80vh;
+    /* background-color: red; */
 `;
 

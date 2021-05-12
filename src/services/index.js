@@ -3,7 +3,8 @@ import axios from 'axios';
 const token = JSON.parse(localStorage.getItem('token'));
 
 const instance = axios.create({
-    baseURL: 'https://api-medhacker.herokuapp.com',
+    // baseURL: 'https://api-medhacker.herokuapp.com',
+    baseURL: 'http://localhost:3333/',
     headers: {
         'authorization': token,
     }

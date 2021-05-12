@@ -1,18 +1,24 @@
 import {
     Wrapper,
+    ImgCard,
     WrapperText,
     TitleCard,
     ButtonCard,
     WrapperButton,
 } from './style';
 
-export default function Card({ title, img }) {
+
+
+export default function Card({ title, img, onClickSeeMore }) {
+   
     return (
-        <Wrapper>   
+        <Wrapper>
+            <ImgCard src={img} />
             <WrapperText>
                 <TitleCard> {title} </TitleCard>
                 <WrapperButton>
-                    <ButtonCard>Ver mais</ButtonCard>
+                    <ButtonCard onClick={onClickSeeMore} width="60" height="3.6" color="#CADEE5"> Ver mais </ButtonCard>
+                    <ButtonCard  >Inscrever-se</ButtonCard>
                 </WrapperButton>
             </WrapperText>
         </Wrapper>

@@ -17,17 +17,19 @@ import axios from '../../../services';
 import { useHistory, useLocation } from 'react-router-dom';
 
 export default function FormEvento() {
-    const [evento, setEvento] = useState({ 
-        id: '', 
-        title: '', 
-        codigo: '', 
-        descricao: '', 
-        inicio: '', 
-        fim: '', 
-        endereco: '', 
+    const [evento, setEvento] = useState({
+        id: '',
+        title: '',
+        codigo: '',
+        descricao: '',
+        inicio: '',
+        fim: '',
+        fim_inscricao: '',
+        inicio_inscricao: '',
+        endereco: '',
         logo: ''
     });
-    
+
     const history = useHistory();
     const location = useLocation();
     const [edit, setEdit] = useState({ id: 0, textButton: '', state: false });
@@ -58,7 +60,7 @@ export default function FormEvento() {
     }
 
     useEffect(() => {
-        
+
         const id = location.state?.id;
 
         if (id) {
@@ -76,7 +78,7 @@ export default function FormEvento() {
 
             setEdit({ id: id, textButton: 'Editar', state: true });
         }
-    }, [ location ]);
+    }, [location]);
 
 
     return (
@@ -86,12 +88,12 @@ export default function FormEvento() {
                 <Form onSubmit={(event) => handleSubmit(event)}>
                     <Titulo>Cadastro de Evento</Titulo>
                     <Subtitulo>Dados do evento</Subtitulo>
-                    <Input 
-                        label="Titulo" 
+                    <Input
+                        label="Titulo"
                         name="titulo"
                         value={evento.titulo}
                         type="text"
-                        functionChange={(event) => handleOnChange(event)} 
+                        functionChange={(event) => handleOnChange(event)}
                     />
                     <Input
                         label="Código"
@@ -104,26 +106,27 @@ export default function FormEvento() {
                         label="Descricao"
                         name="descricao"
                         value={evento.descricao}
-                        functionChange={(event) => handleOnChange(event)} 
+                        functionChange={(event) => handleOnChange(event)}
                     >
-                        {edit.state ? evento.descricao : "" }
+                        {edit.state ? evento.descricao : ""}
                     </Textarea>
                     <FormDivider>
                         <Input
-                            label="Início"
+                            label="Início do Evento"
                             name="inicio"
                             type="date"
                             value={evento.inicio}
-                            functionChange={(event) => handleOnChange(event)} 
+                            functionChange={(event) => handleOnChange(event)}
                         />
                         <Input
-                            label="Fim"
+                            label="Fim do Evento"
                             name="fim"
                             type="date"
                             value={evento.fim}
                             functionChange={(event) => handleOnChange(event)}
                         />
                     </FormDivider>
+                    
                     <Input
                         label="Endereço"
                         name="endereco"
@@ -131,6 +134,22 @@ export default function FormEvento() {
                         value={evento.endereco}
                         functionChange={(event) => handleOnChange(event)}
                     />
+                    <FormDivider>
+                        <Input
+                            label="Início das Inscrições"
+                            name="inicio_inscricao"
+                            type="date"
+                            value={evento.inicio_inscricao}
+                            functionChange={(event) => handleOnChange(event)}
+                        />
+                        <Input
+                            label="Fim das Inscrições"
+                            name="fim_inscricao"
+                            type="date"
+                            value={evento.fim_inscricao}
+                            functionChange={(event) => handleOnChange(event)}
+                        />
+                    </FormDivider>
                     <Input
                         label="Logo"
                         name="logo"
@@ -145,7 +164,6 @@ export default function FormEvento() {
                                 <Button type="submit" text="Cadastrar" />}
                         </WrapperButton>
                     </FooterFrom>
-
                 </Form>
             </Content>
         </Wrapper>

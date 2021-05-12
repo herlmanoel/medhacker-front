@@ -18,6 +18,7 @@ export const Menu = styled.nav`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    
 `;
 
 export const HeaderMenu = styled.nav`
@@ -30,7 +31,13 @@ export const HeaderMenu = styled.nav`
 
 export const FooterMenu = styled.div`
     height: 8rem;
-    width: 100%;
+    /* width: auto; */
+    max-width: 200px;
+    z-index: 1;
+    top: 90vh;
+    left: 0.5vw;
+    /* background-color: red; */
+    position: fixed;
 `;
 
 export const LogoImg = styled.img`

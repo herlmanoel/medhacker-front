@@ -26,8 +26,8 @@ function AuthProvider({ children }) {
 
         localStorage.setItem('token', JSON.stringify(token));
         axios.defaults.headers.authorization = `Bearer ${token}`;
-        setAuthorized(true);        
-        history.push('/listagemusuarios');
+        setAuthorized(true);
+        history.push('/Home');
     }
 
     async function handleLogout() {

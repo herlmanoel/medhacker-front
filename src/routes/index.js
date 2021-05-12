@@ -6,7 +6,6 @@ import FormUsuario from '../pages/Usuario/Form';
 import ListagemUsuarios from '../pages/Usuario/Listagem';
 import FormEvento from '../pages/Evento/Form';
 import ListagemEventos from '../pages/Evento/Listagem';
-import FormProjeto from '../pages/Projeto/Form';
 import ListagemGrupos from '../pages/Grupo/Listagem';
 import FormGrupo from '../pages/Grupo/Form';
 import Configuracoes from '../pages/Configuracoes';
@@ -15,6 +14,10 @@ import { useContext } from 'react';
 import { Context } from '../context/AuthProvider';
 import history from './history';
 import LoadingComponent from "../components/Loading";
+
+import { ProviderModal } from '../pages/Home/context/contextModal';
+
+
 // Configuracoes
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { authorized } = useContext(Context);
@@ -42,16 +45,18 @@ function RouterItems() {
         <Route exact path="/" render={() => <Redirect to={{ pathname: "/login" }} />} />
         <PrivateRoute exact path="/sair" component={Login} />
         <Route exact path="/login" component={Login} />
-        <PrivateRoute exact path="/formprojeto" component={FormProjeto} />
         <PrivateRoute exact path="/formusuario" component={FormUsuario} />
         <PrivateRoute exact path="/formevento" component={FormEvento} />
         <PrivateRoute exact path="/Configuracoes" component={Configuracoes} />
-        <PrivateRoute exact path="/Home" component={Home} />
         <PrivateRoute exact path="/listagemusuarios" component={ListagemUsuarios} />
         <PrivateRoute exact path="/ListagemEventos" component={ListagemEventos} />
         <PrivateRoute exact path="/ListagemGrupos" component={ListagemGrupos} />
         <PrivateRoute exact path="/FormGrupo" component={FormGrupo} />
         <PrivateRoute path="/app" component={() => <h1>Você está logado</h1>} />
+
+        <ProviderModal>
+          <PrivateRoute exact path="/Home" component={Home} />
+        </ProviderModal>
       </Switch>
     </Router>
   );
