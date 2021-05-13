@@ -7,10 +7,9 @@ import {
     WrapperButton,
 } from './style';
 
-
-
-export default function Card({ title, img, onClickSeeMore }) {
+export default function Card({ title, img, onClickSeeMore, onClickCadastro }) {
    
+
     return (
         <Wrapper>
             <ImgCard src={img} />
@@ -23,7 +22,7 @@ export default function Card({ title, img, onClickSeeMore }) {
                         height="3.6" 
                         color="#CADEE5"
                     > Ver mais </ButtonCard>
-                    <ButtonCard  >Inscrever-se</ButtonCard>
+                    <ButtonCard  onClick={onClickCadastro}>Inscrever-se</ButtonCard>
                 </WrapperButton>
             </WrapperText>
         </Wrapper>

@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
     flex-wrap: wrap;
     width: 100%;
     height: 80vh;
+    overflow-y: auto;
     /* background-color: red; */
 `;
 
