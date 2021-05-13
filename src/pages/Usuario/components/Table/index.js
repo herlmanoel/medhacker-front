@@ -22,7 +22,7 @@ import axios from '../../../../services';
 import { Contextusuarios } from '../../context';
 import ButtonComponent from '../../../../components/Button';
 import Pagination from '../../../../components/Pagination';
-
+import LoadingComponent from '../../../../components/Loading/index.js';
 const LIMIT = 10;
 
 export default function TableComponent() {
@@ -40,8 +40,9 @@ export default function TableComponent() {
         { id: 3, title: 'Status' },
         { id: 4, title: 'Ações' },
     ];
+    const [loading, setLoading] = useState(true);
 
-    
+
     const getUsers = () => {
         (async () => {
             const URL = `usuarioslimit/${LIMIT}/${offset}`;
@@ -49,7 +50,7 @@ export default function TableComponent() {
             const { users, count } = data.data;
             await setDataTable(users);
             setPaginationData({ ...paginationData, total: count });
-            console.log({ users, count });
+            setLoading(false);
         })();
     }
 
@@ -115,29 +116,34 @@ export default function TableComponent() {
         </Head>);
     }
 
-    return (
-        <>
-            <WrapperTable>
-                {dataTable.length === 0
-                    ? <h2>Nenhum usuário cadastrado</h2>
-                    : <Table>
+    function Content() {
+        return (
+            <>
+                <WrapperTable>
+                    <Table>
                         <HeadComponent />
                         <BodyItems />
-                    </Table>}
-            </WrapperTable>
-            <WrapperFooter>
-                {paginationData.limit &&
-                    <Pagination
-                        limit={LIMIT}
-                        total={paginationData.total}
-                        offset={offset}
-                        setOffset={setOffset}
-                    />
-                }
-                <BlockButton>
-                    <ButtonComponent onClick={(event) => handleButtonCadastrar(event)} text="Cadastrar" />
-                </BlockButton>
-            </WrapperFooter>
+                    </Table>
+                </WrapperTable>
+                <WrapperFooter>
+                    {paginationData.limit &&
+                        <Pagination
+                            limit={LIMIT}
+                            total={paginationData.total}
+                            offset={offset}
+                            setOffset={setOffset}
+                        />
+                    }
+                    <BlockButton>
+                        <ButtonComponent onClick={(event) => handleButtonCadastrar(event)} text="Cadastrar" />
+                    </BlockButton>
+                </WrapperFooter>
+            </>
+        );
+    }
+    return (
+        <>
+            { loading ? <LoadingComponent /> : <Content /> }
         </>
     )
 }

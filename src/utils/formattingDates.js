@@ -1,6 +1,6 @@
 class FormatttingDates {
 
-    static convertForInputDate(data){
+    static convertForInputDate(data) {
         let dayMonthYear = data.split('T')[0];
         return dayMonthYear;
         // dayMonthYear = dayMonthYear.split('-');

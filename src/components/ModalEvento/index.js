@@ -14,6 +14,7 @@ import {
 import Textarea from '../../components/Textarea';
 import Input from '../../components/Input';
 import { FormatttingDates } from '../../utils/formattingDates';
+import Loading from '../Loading';
 
 import { X } from 'react-feather';
 import ReactDOM from 'react-dom';
@@ -23,10 +24,11 @@ const portalRoot = document.getElementById('portal-root');
 export default function ModalEvento({ isOpen, onClickCLose }) {
     const { eventoId, setEventoId } = useContext(ContextProviderModal);
     const [evento, setEvento] = useState({});
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        setEvento({});
         (async () => {
-            console.log('eventoId: ', eventoId);
             if (eventoId) {
                 const URL = `eventos/${eventoId}`;
                 const { data } = await axios.get(URL);
@@ -36,14 +38,13 @@ export default function ModalEvento({ isOpen, onClickCLose }) {
                 data.fim = FormatttingDates.convertForInputDate(data.fim);
                 console.log(data);
                 await setEvento(data);
+                setLoading(false);
             } else {
                 setEventoId(null);
             }
 
         })();
-        console.log("AQUI");
-        console.log({ evento, eventoId });
-    }, [eventoId]); // eslint-disable-line
+    }, [ eventoId ]); // eslint-disable-line
 
     // se não tiver aberto, retorna null
     if (!isOpen) {
@@ -53,83 +54,85 @@ export default function ModalEvento({ isOpen, onClickCLose }) {
     return ReactDOM.createPortal(
         <Wrapper isOpen={isOpen}>
             <Modal>
-                <MenuHeaderClose>
-                    <ButtonClose type="button" onClick={onClickCLose}> <X color="#000" /> </ButtonClose>
-                </MenuHeaderClose>
+                {loading ? <Loading /> :
+                    <>
+                        <MenuHeaderClose>
+                            <ButtonClose type="button" onClick={onClickCLose}> <X color="#000" /> </ButtonClose>
+                        </MenuHeaderClose>
+                        <Form>
+                            <Titulo>Detalhes do Evento</Titulo>
+                            <Input
+                                label="Titulo"
+                                name="titulo"
+                                value={evento.titulo}
+                                type="text"
+                                disabled
+                            />
+                            <Input
+                                label="Código"
+                                name="codigo"
+                                type="text"
+                                value={evento.codigo}
+                                disabled
+                            />
+                            <Textarea
+                                label="Descricao"
+                                name="descricao"
+                                value={evento.descricao}
+                                disabled
+                            >
 
-                <Form>
-                    <Titulo>Detalhes do Evento</Titulo>
-                    <Input
-                        label="Titulo"
-                        name="titulo"
-                        value={evento.titulo}
-                        type="text"
-                        disabled
-                    />
-                    <Input
-                        label="Código"
-                        name="codigo"
-                        type="text"
-                        value={evento.codigo}
-                        disabled
-                    />
-                    <Textarea
-                        label="Descricao"
-                        name="descricao"
-                        value={evento.descricao}
-                        disabled
-                    >
+                            </Textarea>
+                            <FormDivider>
+                                <Input
+                                    label="Início do Evento"
+                                    name="inicio"
+                                    type="date"
+                                    value={evento.inicio}
+                                    disabled
+                                />
+                                <Input
+                                    label="Fim do Evento"
+                                    name="fim"
+                                    type="date"
+                                    value={evento.fim}
+                                    disabled
+                                />
+                            </FormDivider>
 
-                    </Textarea>
-                    <FormDivider>
-                        <Input
-                            label="Início do Evento"
-                            name="inicio"
-                            type="date"
-                            value={evento.inicio}
-                            disabled
-                        />
-                        <Input
-                            label="Fim do Evento"
-                            name="fim"
-                            type="date"
-                            value={evento.fim}
-                            disabled
-                        />
-                    </FormDivider>
-
-                    <Input
-                        label="Endereço"
-                        name="endereco"
-                        type="text"
-                        value={evento.endereco}
-                        disabled
-                    />
-                    <FormDivider>
-                        <Input
-                            label="Início das Inscrições"
-                            name="inicio_inscricao"
-                            type="date"
-                            value={evento.inicio_inscricao}
-                            disabled
-                        />
-                        <Input
-                            label="Fim das Inscrições"
-                            name="fim_inscricao"
-                            type="date"
-                            value={evento.fim_inscricao}
-                            disabled
-                        />
-                    </FormDivider>
-                    <Input
-                        label="Logo"
-                        name="logo"
-                        type="text"
-                        value={evento.logo}
-                        disabled
-                    />
-
-                </Form>
+                            <Input
+                                label="Endereço"
+                                name="endereco"
+                                type="text"
+                                value={evento.endereco}
+                                disabled
+                            />
+                            <FormDivider>
+                                <Input
+                                    label="Início das Inscrições"
+                                    name="inicio_inscricao"
+                                    type="date"
+                                    value={evento.inicio_inscricao}
+                                    disabled
+                                />
+                                <Input
+                                    label="Fim das Inscrições"
+                                    name="fim_inscricao"
+                                    type="date"
+                                    value={evento.fim_inscricao}
+                                    disabled
+                                />
+                            </FormDivider>
+                            <Input
+                                label="Logo"
+                                name="logo"
+                                type="text"
+                                value={evento.logo}
+                                disabled
+                            />
+                        </Form>
+                    </>
+                }
             </Modal>
         </Wrapper>,
         portalRoot

@@ -4,14 +4,18 @@ export const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    gap: 3vw;
     width: auto;
-    max-width: 500px;
     max-height: 300px;
-    padding: 5rem;
+    padding: 3rem;
     background-color: #319CC7;
     border-radius: 1rem;
     margin: 1rem;
+
+    @media (max-width: 1272px) {
+        width: 90%;
+        margin: 0 10%;
+    }
 `;
 
 export const WrapperText = styled.div`
@@ -30,6 +34,7 @@ export const TitleCard = styled.h1`
     color: white;
     font-size: 2.5rem;
     font-weight: 500;
+    margin-bottom: 2rem;
 `;
 
 
@@ -39,7 +44,7 @@ export const WrapperButton = styled.div`
 
 export const ButtonCard = styled.button`
     display: block;
-    width: ${(props) => props.width ? `${props.width}%` : `90%`};
+    width: ${(props) => props.width ? `15rem` : `20rem`};
     height: ${(props) => props.height ? `${props.height}rem` : `4.6rem`};
     border-radius: 0.8rem;
     background: ${(props) => props.color ? props.color : `#FFF`};
