@@ -14,10 +14,9 @@ import { useContext } from 'react';
 import { Context } from '../context/AuthProvider';
 import history from './history';
 import LoadingComponent from "../components/Loading";
-
 import { ProviderModal } from '../pages/Home/context/contextModal';
 
-
+// import Teste from '../pages/Teste';
 // Configuracoes
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { authorized } = useContext(Context);
@@ -53,7 +52,7 @@ function RouterItems() {
         <PrivateRoute exact path="/ListagemGrupos" component={ListagemGrupos} />
         <PrivateRoute exact path="/FormGrupo" component={FormGrupo} />
         <PrivateRoute path="/app" component={() => <h1>Você está logado</h1>} />
-
+        {/* <Route path="/teste" component={Teste} /> */}
         <ProviderModal>
           <PrivateRoute exact path="/Home" component={Home} />
         </ProviderModal>

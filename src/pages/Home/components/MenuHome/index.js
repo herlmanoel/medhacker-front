@@ -3,11 +3,9 @@ import {
     Content,
     Title,
     Infos,
-} from './style'
-// import InputSearch from '../InputSearch';
+} from './style';
 
 export default function MenuHome({ nome }) {
-    // const { title } = useContext(ContextListagem);
     return (
         <Wrapper>
             <Content>

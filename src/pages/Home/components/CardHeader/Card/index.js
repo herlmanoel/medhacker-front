@@ -18,9 +18,7 @@ export default function Card({ title, img, onClickSeeMore, onClickCadastro }) {
                 <WrapperButton>
                     <ButtonCard 
                         onClick={onClickSeeMore}  
-                        width="14" 
-                        height="3.6" 
-                        color="#CADEE5"
+                        seeMore
                     > Ver mais </ButtonCard>
                     <ButtonCard  onClick={onClickCadastro}>Inscrever-se</ButtonCard>
                 </WrapperButton>

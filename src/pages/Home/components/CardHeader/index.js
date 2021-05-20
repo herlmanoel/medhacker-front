@@ -1,15 +1,15 @@
-import { Wrapper } from './style';
-
-import Card from './Card';
-
-import img01 from '../../../../assets/img/imgCards/ilustracao01.svg';
-import { ContextProviderModal } from '../../context/contextModal';
 import { useContext } from 'react';
+
+import { Wrapper } from './style';
+import Card from './Card';
+import img01 from '../../../../assets/img/imgCards/ilustracao01.svg';
+
+import { ContextProviderModal } from '../../context/contextModal';
 import history from '../../../../routes/history';
+
 export default function CardHeader({ data }) {
     const { setEventoId } = useContext(ContextProviderModal);
     
-
     function handleCadastrar(id_evento) {
         console.log('id_evento', id_evento);
         return history.push({
