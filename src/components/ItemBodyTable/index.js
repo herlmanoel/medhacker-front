@@ -1,5 +1,5 @@
 import { ItemBodyComponent } from "./styles";
 
-export const ItemBody = () => {
+export const ItemBodyTable = () => {
   return <ItemBodyComponent> </ItemBodyComponent>;
 };

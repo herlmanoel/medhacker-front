@@ -1,11 +1,11 @@
 import { EditIcon, TrashIcon, LinkAction } from "./styles";
 
-import { ItemBody } from "./ItemBody";
+import { ItemBody } from "../../../ItemBodyTable";
 
 export const BodyTable = ({ dataTable, handleDelete, location }) => {
   return (
     <tbody>
-      {dataTable.map((item) => (
+      {dataTable.map(({ item }) => (
         <tr key={item.id}>
           <ItemBody>{item.nome}</ItemBody>
           <ItemBody> {item.username} </ItemBody>
