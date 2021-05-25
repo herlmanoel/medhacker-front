@@ -1,22 +1,19 @@
 import {
-  Body,
   ItemBody,
   Name,
   Email,
+  LinkAction,
   EditIcon,
   TrashIcon,
-  LinkAction,
-} from "./style";
-
+} from "./styles";
 export const BodyItems = ({ dataTable, handleDelete }) => {
   return (
-    <Body>
+    <tbody>
       {dataTable.map((item) => {
         return (
           <tr key={item.id}>
             <ItemBody>
-              {" "}
-              <Name>{item.nome}</Name> <Email>{item.email}</Email>{" "}
+              <Name>{item.nome}</Name> <Email>{item.email}</Email>
             </ItemBody>
             <ItemBody> {item.permissao} </ItemBody>
             <ItemBody> Ativo </ItemBody>
@@ -38,6 +35,6 @@ export const BodyItems = ({ dataTable, handleDelete }) => {
           </tr>
         );
       })}
-    </Body>
+    </tbody>
   );
 };

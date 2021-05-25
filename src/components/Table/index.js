@@ -1,29 +1,21 @@
-import {
-  Table,
-  Head,
-  ItemHead,
-  Line,
-  WrapperTable,
-  WrapperFooter,
-  BlockButton,
-} from "./style.js";
+import { Table, WrapperTable, WrapperFooter, BlockButton } from "./style.js";
 
 import ButtonComponent from "../Button";
 import Pagination from "../Pagination";
-import LoadingComponent from "../Loading";
-
-import { HeaderTable } from "./components/HeaderTable";
-
+import LoadingComponent from "../Loading/index.js";
+import { HeadComponent } from "./HeaderItems";
 export default function TableComponent({
+  LIMIT,
   dataTable,
-  handleDelete,
-  handleButtonCadastrar,
-  loading,
-  columns,
-  paginationData,
+  setDataTable,
   offset,
   setOffset,
-  LIMIT,
+  paginationData,
+  setPaginationData,
+  columns,
+  handleButtonCadastrar,
+  loading,
+  handleDelete,
   BodyItems,
 }) {
   function Content() {
@@ -31,8 +23,8 @@ export default function TableComponent({
       <>
         <WrapperTable>
           <Table>
-            <HeaderTable columns={columns} />
-            <BodyItems />
+            <HeadComponent columns={columns} />
+            <BodyItems dataTable={dataTable} handleDelete={handleDelete} />
           </Table>
         </WrapperTable>
         <WrapperFooter>

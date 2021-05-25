@@ -6,7 +6,7 @@ import {
 import { useState, useContext } from 'react';
 import { Search } from 'react-feather';
 import axios from '../../../../services';
-import { Contextusuarios } from '../../context';
+import { Contextusuarios } from '../../../../context/Usuario';
 
 export default function InputComponent({ name, type }) {
     const [campo, setCampo] = useState('');
