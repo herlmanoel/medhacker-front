@@ -15,8 +15,10 @@ import Button from '../../../components/Button';
 import { useState, useEffect } from 'react';
 import axios from '../../../services';
 import { useHistory, useLocation } from 'react-router-dom';
+import { FormatttingDates } from '../../../utils/formattingDates.js';
 
 export default function FormEvento() {
+
     const [evento, setEvento] = useState({
         id: '',
         title: '',
@@ -115,14 +117,14 @@ export default function FormEvento() {
                             label="Início do Evento"
                             name="inicio"
                             type="date"
-                            value={evento.inicio}
+                            value={FormatttingDates.convertForInputDate(evento?.inicio)}
                             functionChange={(event) => handleOnChange(event)}
                         />
                         <Input
                             label="Fim do Evento"
                             name="fim"
                             type="date"
-                            value={evento.fim}
+                            value={FormatttingDates.convertForInputDate(evento?.fim)}
                             functionChange={(event) => handleOnChange(event)}
                         />
                     </FormDivider>
@@ -139,14 +141,14 @@ export default function FormEvento() {
                             label="Início das Inscrições"
                             name="inicio_inscricao"
                             type="date"
-                            value={evento.inicio_inscricao}
+                            value={FormatttingDates.convertForInputDate(evento?.inicio_inscricao)}
                             functionChange={(event) => handleOnChange(event)}
                         />
                         <Input
                             label="Fim das Inscrições"
                             name="fim_inscricao"
                             type="date"
-                            value={evento.fim_inscricao}
+                            value={FormatttingDates.convertForInputDate(evento?.fim_inscricao)}
                             functionChange={(event) => handleOnChange(event)}
                         />
                     </FormDivider>
