@@ -70,8 +70,8 @@ export default function FormEvento() {
                 })
                     .then(result => {
                         const event = result.data[0];
-                        setEvento(event)
-                        console.log(event)
+                        setEvento(event);
+                        console.log(event);
                     })
                     .catch(err => console.log(err));
             })();

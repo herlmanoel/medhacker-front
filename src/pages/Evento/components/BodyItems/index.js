@@ -24,7 +24,7 @@ export const BodyItems = ({ dataTable, handleDelete }) => {
             <ItemBody>
               <LinkAction
                 to={{
-                  pathname: "/ListagemGrupos",
+                  pathname: "/formevento",
                   state: {
                     id: item.id,
                   },
