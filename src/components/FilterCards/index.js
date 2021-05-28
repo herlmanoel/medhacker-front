@@ -1,28 +1,15 @@
-import { useState } from "react";
 import { Wrapper, Text } from "./styles";
 
-export const FilterCards = () => {
-  const filterCardsTexts = [
-    { id: Math.random(), title: "Todos", clicked: true, url: "" },
-    {
-      id: Math.random(),
-      title: "Com inscrições abertas",
-      clicked: false,
-      url: "",
-    },
-    {
-      id: Math.random(),
-      title: "Com inscrições encerradas",
-      clicked: false,
-      url: "",
-    },
-  ];
-
-  const [clicked, setClicked] = useState(filterCardsTexts);
+export const FilterCards = ({ setUrlFilter = '', filterCardsTexts, setClicked }) => {
+  
+  const updateItemAndSetUrl = (item) => {
+    item.clicked = true;
+    setUrlFilter(item.url);
+  }
 
   const handleClicked = (id) => {
-    const newClicked = clicked.map((item) => {
-      id === item.id ? (item.clicked = true) : (item.clicked = false);
+    const newClicked = filterCardsTexts.map((item) => {
+      id === item.id ? updateItemAndSetUrl(item) : (item.clicked = false);
       return item;
     });
     setClicked(newClicked);
@@ -30,7 +17,7 @@ export const FilterCards = () => {
 
   return (
     <Wrapper>
-      {clicked.map((item) => (
+      {filterCardsTexts.map((item) => (
         <Text
           onClick={() => handleClicked(Number(item.id))}
           clicked={item.clicked}

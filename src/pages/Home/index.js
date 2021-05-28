@@ -8,19 +8,49 @@ import Header from "./components/Header";
 
 import LoadingComponent from "../../components/Loading";
 export default function Home() {
-  const [dataEventosIA, setDataEventosIA] = useState([]);
   const { eventoId, setEventoId } = useContext(ContextProviderModal);
+  const [dataEventosIA, setDataEventosIA] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [urlFilter, setUrlFilter] = useState("eventos");
+
+  const filterCardsTexts = [
+    { id: Math.random(), title: "Todos", clicked: true, url: "eventos" },
+    {
+      id: Math.random(),
+      title: "Com inscrições abertas",
+      clicked: false,
+      url: "eventosinscabertas",
+    },
+    {
+      id: Math.random(),
+      title: "Com inscrições encerradas",
+      clicked: false,
+      url: "eventosseminscabertas",
+    },
+  ];
+
+  const [clicked, setClicked] = useState(filterCardsTexts);
+
+  const getEventos = (url) => {
+    axios
+      .get(url)
+      .then((response) => {
+        const { data } = response;
+        console.log(response);
+        setDataEventosIA(data);
+        console.log(dataEventosIA);
+        setLoading(false);
+      })
+      .catch((error) => console.log(error));
+  };
 
   useEffect(() => {
     const pageName = "Home";
     document.title = pageName;
-    (async () => {
-      const { data } = await axios.get("eventosinscabertas");
-      await setDataEventosIA([...data.eventosIA]);
-      setLoading(false);
-    })();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    setLoading(true);
+    getEventos(urlFilter);
+    console.log(urlFilter);
+  }, [urlFilter]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Wrapper>
@@ -33,7 +63,7 @@ export default function Home() {
         {loading ? (
           <LoadingComponent />
         ) : (
-          <Header dataEventosIA={dataEventosIA} />
+          <Header setClicked={setClicked} filterCardsTexts={clicked} setUrlFilter={setUrlFilter} dataEventosIA={dataEventosIA} />
         )}
       </WrapperMain>
     </Wrapper>
