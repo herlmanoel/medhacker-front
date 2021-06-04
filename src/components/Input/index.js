@@ -10,7 +10,7 @@ export default function InputComponent({ label, name, type, functionChange, valu
     return (
        <Wrapper>
            <Label htmlFor={name}>{label}</Label>
-           <Input type={type} id={name} name={name} value={value} onChange={functionChange} disabled/>
+           <Input type={type} id={name} name={name} value={value} onChange={functionChange} disabled={disabled}/>
        </Wrapper>
     );
 }
