@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
 export const Content = styled.div`
-
     width: 100%;
     max-width: 800px;
     background: #FFFFFF;
     box-shadow: 0px 4px 25px 1px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     display: flex;
-    justify-content: center;
-    
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 5rem;
 `;
 
 export const Form = styled.form`
@@ -20,8 +20,6 @@ export const Form = styled.form`
 
 export const Titulo = styled.h1`
     color: var(--color-primaria);
-    /* max-width: 30rem; */
-    /* line-height: 4rem; */
     size: 0.8rem;
 `;
 
@@ -50,6 +48,8 @@ export const FormDivider = styled.div`
 
 export const WrapperButton = styled.div`
     width: 32rem;
+    display: flex;
+    gap: 2rem;
 `;
 export const FooterFrom = styled.div`
     margin-top: 3rem;
@@ -64,6 +64,7 @@ export const Wrapper = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    
     
     @media (max-width: 900px) {
         ${Content}, ${Form}  {
@@ -95,7 +96,6 @@ export const Wrapper = styled.div`
             width: 45rem;
             padding: 5rem;
             width: 100%;
-            height: 100%;
         }
     }
    

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 import {
   Wrapper,
@@ -18,6 +18,7 @@ import {
   ContentCheckbox,
   Checkbox,
 } from "./style.js";
+
 import Input from "../../components/Input";
 import imgLogo from "../../assets/img/logo-colorida.jpg";
 import { Context } from "../../context/AuthProvider";
@@ -27,11 +28,13 @@ export default function Login() {
   const { handleLogin } = useContext(Context);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const location = useLocation();
+  // const location = useLocation();
+  const [tempError, setTempError] = useState(false);
 
   useEffect(() => {
+    console.log("AQUI");
     document.title = "Login";
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <Wrapper>
@@ -43,7 +46,7 @@ export default function Login() {
           </ImgBlock>
           <Title>Login</Title>
 
-          {location?.state?.error && (
+          {tempError && (
             <Error mensage="Erro ao realizar o login. Tente novamente." />
           )}
 
@@ -69,7 +72,11 @@ export default function Login() {
               <TextoSub>Esqueceu sua senha?</TextoSub>
             </ContentText>
 
-            <Button onClick={(event) => handleLogin(event, { email, senha })}>
+            <Button
+              onClick={(event) =>
+                handleLogin(event, { email, senha }, setTempError)
+              }
+            >
               {" "}
               Entrar{" "}
             </Button>

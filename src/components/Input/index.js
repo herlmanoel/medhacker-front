@@ -6,14 +6,11 @@ import {
 
 
 
-export default function InputComponent({ label, name, type, functionChange, value}){
-
-    
-
+export default function InputComponent({ label, name, type, functionChange, value, disabled }){
     return (
        <Wrapper>
            <Label htmlFor={name}>{label}</Label>
-           <Input type={type} id={name} name={name} value={value} onChange={functionChange}/>
+           <Input type={type} id={name} name={name} value={value} onChange={functionChange} disabled/>
        </Wrapper>
     );
 }

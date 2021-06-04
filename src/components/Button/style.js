@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
-    width: 100%;
+    width: ${(props) => props.width ? props.width : '100%'} ;
     height: 5.6rem;
     
     border: 1px solid var(--color-line-in-white); 
@@ -9,7 +9,8 @@ export const Button = styled.button`
     background-color: var(--color-verde-botao);
     cursor: pointer;
     transition: opacity 0.5s;
-    margin-bottom: 3rem;
+    /* margin-top: 3rem; */
+    
 
     &:hover {
         opacity: 0.8;

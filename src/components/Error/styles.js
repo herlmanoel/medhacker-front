@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   color: #fff;
+  ${(props) => props.sumir && `display: none;`}
 `;
 
 export const Mensage = styled.p`

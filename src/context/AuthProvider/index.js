@@ -24,29 +24,35 @@ function AuthProvider({ children }) {
     setLoading(false);
   }, []);
 
-  async function handleLogin(event, { email = "", senha = "" }) {
+  async function handleLogin(event, { email = "", senha = "" }, setTempError) {
     event.preventDefault();
-    
-    axios
-      .post("/autenticar", { email, senha })
-      .catch(() => {
-        history.push({
-          pathname: "/login",
-          state: {
-            error: true,
-          },
-        });
-      })
-      .then((response) => {
-        console.log(response);
-        const {
-          data: { token },
-        } = response;
-        localStorage.setItem("token", JSON.stringify(token));
-        axios.defaults.headers.authorization = `Bearer ${token}`;
-        setAuthorized(true);
-        history.push("/Home");
-      });
+    try {
+      axios
+        .post("/autenticar", { email, senha })
+        .then((response) => {
+          console.log(response);
+          console.log(response);
+          const {
+            data: { token },
+          } = response;
+          localStorage.setItem("token", JSON.stringify(token));
+          axios.defaults.headers.authorization = `Bearer ${token}`;
+          setAuthorized(true);
+          history.push("/Home");
+        })
+        .catch((err) => {
+          console.log(err);
+          setTempError(true);
+          return history.push({
+            pathname: "/login",
+            state: {
+              error: true,
+            },
+          });
+          });
+    } catch (error) {
+      console.error("erro: ", error);
+    }
   }
 
   async function handleLogout() {

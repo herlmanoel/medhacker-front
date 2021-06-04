@@ -8,6 +8,7 @@ import {
   FooterFrom,
   FormDivider,
 } from "./style.js";
+
 import MenuForm from "../../../components/MenuForm";
 import Textarea from "../../../components/Textarea";
 import Input from "../../../components/Input";
@@ -15,11 +16,18 @@ import Button from "../../../components/Button";
 import { useState, useEffect } from "react";
 import axios from "../../../services";
 import { useHistory, useLocation } from "react-router-dom";
+import { FormComponente } from "../components/FormComponente/index.js";
 
 export default function FormGrupo() {
   const history = useHistory();
   const location = useLocation();
-  const [edit, setEdit] = useState({ id: 0, textButton: "", state: false });
+  const [edit, setEdit] = useState({
+    id: location.state?.id_grupo,
+    textButton: "",
+    state: false,
+  });
+  const [tela, setTela] = useState(true);
+
   const [grupo, setGrupo] = useState({
     id_evento: location.state?.id,
     nome: "",
@@ -36,23 +44,33 @@ export default function FormGrupo() {
     await axios.post("grupos", grupo);
     console.log("location: ", location);
     console.log("idEvento do Form: ", idEvento);
-
-    return history.push({
-      pathname: "/ListagemGrupos",
-      state: {
-        id: idEvento,
-      },
-    });
+    return setTela({ ...tela });
+    // return history.push({
+    //   pathname: "/ListagemGrupos",
+    //   state: {
+    //     id: idEvento,
+    //   },
+    // });
   }
 
   async function handleEdit(event) {
     event.preventDefault();
     const idGrupo = location.state?.id_grupo;
-    const idEvento = location.state?.id_evento;
+    // const idEvento = location.state?.id_evento;
     await axios
       .put(`grupos/${idGrupo}`, grupo)
       .catch((err) => console.error(err));
+    return setTela(false);
+    // return history.push({
+    //   pathname: "/ListagemGrupos",
+    //   state: {
+    //     id: idEvento,
+    //   },
+    // });
+  }
 
+  function irParaListagemGrupos() {
+    const idEvento = location.state?.id_evento;
     return history.push({
       pathname: "/ListagemGrupos",
       state: {
@@ -69,12 +87,8 @@ export default function FormGrupo() {
   }
 
   useEffect(() => {
-    // const idEvento = location.state?.id_evento;
     const idGrupo = location.state?.id_grupo;
-    // console.log(idGrupo)
-    // console.log(idEvento)
-    // setGrupo({ ...grupo, id_evento: idEvento });
-    // console.log(grupo);
+
     if (idGrupo) {
       (async () => {
         const URL = `grupos/${idGrupo}`;
@@ -93,55 +107,69 @@ export default function FormGrupo() {
 
   return (
     <Wrapper>
-      <MenuForm />
+      <MenuForm tela={tela} setTela={setTela} />
       <Content>
-        <Form onSubmit={(event) => handleSubmit(event)}>
-          <Titulo>Cadastro de Grupo</Titulo>
-          <Subtitulo>Dados do grupo</Subtitulo>
-          <Input
-            label="Nome"
-            name="nome"
-            value={grupo.nome}
-            type="text"
-            functionChange={(event) => handleOnChange(event)}
-          />
-          <FormDivider>
+        {tela ? (
+          <Form onSubmit={(event) => handleSubmit(event)}>
+            <Titulo>Cadastro de Grupo</Titulo>
+            <Subtitulo>Dados do grupo</Subtitulo>
             <Input
-              label="username"
-              name="username"
-              value={grupo.username}
-              functionChange={(event) => handleOnChange(event)}
-            />
-            <Input
-              label="Logo"
-              name="logo"
+              label="Nome"
+              name="nome"
+              value={grupo.nome}
               type="text"
-              value={grupo.logo}
               functionChange={(event) => handleOnChange(event)}
             />
-          </FormDivider>
-          <Textarea
-            label="Descricao"
-            name="descricao"
-            value={grupo.descricao}
-            functionChange={(event) => handleOnChange(event)}
-          >
-            {edit.state ? grupo.descricao : ""}
-          </Textarea>
+            <FormDivider>
+              <Input
+                label="username"
+                name="username"
+                value={grupo.username}
+                functionChange={(event) => handleOnChange(event)}
+              />
+              <Input
+                label="Logo"
+                name="logo"
+                type="text"
+                value={grupo.logo}
+                functionChange={(event) => handleOnChange(event)}
+              />
+            </FormDivider>
+            <Textarea
+              label="Descricao"
+              name="descricao"
+              value={grupo.descricao}
+              functionChange={(event) => handleOnChange(event)}
+            >
+              {edit.state ? grupo.descricao : ""}
+            </Textarea>
 
-          <FooterFrom>
-            <WrapperButton>
-              {edit.state ? (
-                <Button
-                  onClick={(event) => handleEdit(event)}
-                  text={edit.textButton}
-                />
-              ) : (
-                <Button type="submit" text="Cadastrar" />
-              )}
-            </WrapperButton>
-          </FooterFrom>
-        </Form>
+            <FooterFrom>
+              <WrapperButton>
+                {edit.state ? (
+                  <Button
+                    onClick={(event) => handleEdit(event)}
+                    text={edit.textButton + " e avançar"}
+                  />
+                ) : (
+                  <Button type="submit" text="Cadastrar e avançar" />
+                )}
+              </WrapperButton>
+            </FooterFrom>
+          </Form>
+        ) : (
+          <>
+            <Form>
+              <Subtitulo>Componentes do Grupo</Subtitulo>
+              <FormComponente id_grupo={Number(edit.id)} />
+            </Form>
+            <Button
+              width="30rem"
+              onClick={(event) => irParaListagemGrupos()}
+              text="Finalizar cadastro"
+            />
+          </>
+        )}
       </Content>
     </Wrapper>
   );
