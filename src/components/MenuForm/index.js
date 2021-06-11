@@ -10,7 +10,7 @@ import { ArrowLeft } from 'react-feather';
 import logoColorida from '../../assets/img/MedHacker.svg';
 import { useHistory } from 'react-router-dom';
 
-export default function MenuForm({ tela, setTela }) {
+export default function MenuForm({ tela = true, setTela }) {
     const history = useHistory();
     function handleGoBack() {
         if(!tela) {

@@ -14,7 +14,7 @@ export const BodyItems = ({ dataTable, handleDelete }) => {
                 to={{
                   pathname: "/ListagemGrupos",
                   state: {
-                    id: item.id,
+                    id: Number(item.id),
                   },
                 }}
               >
@@ -26,7 +26,7 @@ export const BodyItems = ({ dataTable, handleDelete }) => {
                 to={{
                   pathname: "/formevento",
                   state: {
-                    id: item.id,
+                    id: Number(item.id),
                   },
                 }}
               >
@@ -34,7 +34,7 @@ export const BodyItems = ({ dataTable, handleDelete }) => {
               </LinkAction>
               <LinkAction
                 to="#"
-                onClick={(item) => handleDelete(Number(item.id))}
+                onClick={() => handleDelete(Number(item.id))}
               >
                 <TrashIcon color="#F23D4C" />
               </LinkAction>

@@ -17,16 +17,21 @@ import { useState, useEffect } from "react";
 import axios from "../../../services";
 import { useHistory, useLocation } from "react-router-dom";
 import { FormComponente } from "../components/FormComponente/index.js";
-
 export default function FormGrupo() {
   const history = useHistory();
   const location = useLocation();
   const [edit, setEdit] = useState({
     id: location.state?.id_grupo,
-    textButton: "",
+    textButton: "Editar",
     state: false,
   });
+
+  useEffect(() => {
+    console.log("edit: ", edit);
+  }, [edit]);
+
   const [tela, setTela] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   const [grupo, setGrupo] = useState({
     id_evento: location.state?.id,
@@ -39,26 +44,21 @@ export default function FormGrupo() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const idEvento = location.state?.id;
     console.log(grupo);
-    await axios.post("grupos", grupo);
-    console.log("location: ", location);
-    console.log("idEvento do Form: ", idEvento);
-    return setTela({ ...tela });
-    // return history.push({
-    //   pathname: "/ListagemGrupos",
-    //   state: {
-    //     id: idEvento,
-    //   },
-    // });
+    await axios.post("grupos", grupo).then((response) => {
+      const {
+        data: { id },
+      } = response;
+      setEdit({ ...edit, id: id, state: true });
+    });
+    return setTela(false);
   }
 
   async function handleEdit(event) {
     event.preventDefault();
-    const idGrupo = location.state?.id_grupo;
     // const idEvento = location.state?.id_evento;
     await axios
-      .put(`grupos/${idGrupo}`, grupo)
+      .put(`grupos/${edit.id}`, grupo)
       .catch((err) => console.error(err));
     return setTela(false);
     // return history.push({
@@ -106,71 +106,75 @@ export default function FormGrupo() {
   }, [location]);
 
   return (
-    <Wrapper>
-      <MenuForm tela={tela} setTela={setTela} />
-      <Content>
-        {tela ? (
-          <Form onSubmit={(event) => handleSubmit(event)}>
-            <Titulo>Cadastro de Grupo</Titulo>
-            <Subtitulo>Dados do grupo</Subtitulo>
-            <Input
-              label="Nome"
-              name="nome"
-              value={grupo.nome}
-              type="text"
-              functionChange={(event) => handleOnChange(event)}
-            />
-            <FormDivider>
+    <>
+      {" "}
+      {/* <ModalComponent /> */}
+      <Wrapper>
+        <MenuForm tela={tela} setTela={setTela} />
+        <Content>
+          {tela ? (
+            <Form onSubmit={(event) => handleSubmit(event)}>
+              <Titulo>Cadastro de Grupo</Titulo>
+              <Subtitulo>Dados do grupo</Subtitulo>
               <Input
-                label="username"
-                name="username"
-                value={grupo.username}
-                functionChange={(event) => handleOnChange(event)}
-              />
-              <Input
-                label="Logo"
-                name="logo"
+                label="Nome"
+                name="nome"
+                value={grupo.nome}
                 type="text"
-                value={grupo.logo}
                 functionChange={(event) => handleOnChange(event)}
               />
-            </FormDivider>
-            <Textarea
-              label="Descricao"
-              name="descricao"
-              value={grupo.descricao}
-              functionChange={(event) => handleOnChange(event)}
-            >
-              {edit.state ? grupo.descricao : ""}
-            </Textarea>
+              <FormDivider>
+                <Input
+                  label="username"
+                  name="username"
+                  value={grupo.username}
+                  functionChange={(event) => handleOnChange(event)}
+                />
+                <Input
+                  label="Logo"
+                  name="logo"
+                  type="text"
+                  value={grupo.logo}
+                  functionChange={(event) => handleOnChange(event)}
+                />
+              </FormDivider>
+              <Textarea
+                label="Descricao"
+                name="descricao"
+                value={grupo.descricao}
+                functionChange={(event) => handleOnChange(event)}
+              >
+                {edit.state ? grupo.descricao : ""}
+              </Textarea>
 
-            <FooterFrom>
-              <WrapperButton>
-                {edit.state ? (
-                  <Button
-                    onClick={(event) => handleEdit(event)}
-                    text={edit.textButton + " e avançar"}
-                  />
-                ) : (
-                  <Button type="submit" text="Cadastrar e avançar" />
-                )}
-              </WrapperButton>
-            </FooterFrom>
-          </Form>
-        ) : (
-          <>
-            <Form>
-              <Subtitulo>Componentes do Grupo</Subtitulo>
-              <FormComponente id_grupo={Number(edit.id)} />
+              <FooterFrom>
+                <WrapperButton>
+                  {edit.state ? (
+                    <Button
+                      onClick={(event) => handleEdit(event)}
+                      text={edit.textButton + " e avançar"}
+                    />
+                  ) : (
+                    <Button type="submit" text="Cadastrar e avançar" />
+                  )}
+                </WrapperButton>
+              </FooterFrom>
             </Form>
-            <Button
-              width="30rem"
-              onClick={(event) => irParaListagemGrupos()}
-              text="Finalizar cadastro"
-            />
-          </>
-        )}
-      </Content>
-    </Wrapper>
+          ) : (
+            <>
+              <Form>
+                <Subtitulo>Componentes do Grupo</Subtitulo>
+                <FormComponente id_grupo={Number(edit.id || null)} showModal={showModal} setShowModal={setShowModal}/>
+              </Form>
+              <Button
+                width="30rem"
+                onClick={(event) => irParaListagemGrupos()}
+                text="Finalizar cadastro"
+              />
+            </>
+          )}
+        </Content>
+      </Wrapper>
+    </>
   );
 }

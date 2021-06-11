@@ -23,3 +23,18 @@ export const ButtonBlock = styled.div`
   align-items: flex-end;
   padding-bottom: 0.3rem;
 `;
+
+export const Link = styled.a`
+  text-decoration: none;
+  padding-top: 4rem;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: red; */
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;

@@ -56,7 +56,12 @@ export const BlockButton = styled.div`
 `;
 
 export const EditIcon = styled(Edit)``;
-export const TrashIcon = styled(Trash)``;
+export const TrashIcon = styled(Trash)`
+    cursor: pointer;
+    &:hover {
+        opacity: 0.6;
+    }
+`;
 export const UsersIcon = styled(Users)``;
 export const LinkAction = styled(Link)`
     /* text-decoration: none; */
