@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { useState, useContext, useEffect } from "react";
-// import { useLocation } from "react-router-dom";
+import { useContext, useEffect, useRef } from "react";
+import toast, { Toaster } from 'react-hot-toast';
 
 import {
   Wrapper,
@@ -22,22 +22,38 @@ import {
 import Input from "../../components/Input";
 import imgLogo from "../../assets/img/logo-colorida.jpg";
 import { Context } from "../../context/AuthProvider";
-import { Error } from "../../components/Error";
+
+const error = () => toast.error('Erro ao relizar o login.');
+const success = () => toast.success('Sucesso ao realizar o login.');
+
+const notify = {
+  error, success,
+};
 
 export default function Login() {
   const { handleLogin } = useContext(Context);
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  // const location = useLocation();
-  const [tempError, setTempError] = useState(false);
+
+  const emailInputRef = useRef(null);
+  const senhaInputRef = useRef(null);
 
   useEffect(() => {
-    console.log("AQUI");
     document.title = "Login";
-  }, []); // eslint-disable-line
+  }, []);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const email = emailInputRef.current.value;
+    const senha = senhaInputRef.current.value;
+
+    handleLogin(event, { email, senha }, notify);
+  }
 
   return (
     <Wrapper>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
       <ImgContent />
       <Content>
         <FormContent>
@@ -46,48 +62,36 @@ export default function Login() {
           </ImgBlock>
           <Title>Login</Title>
 
-          {tempError && (
-            <Error mensage="Erro ao realizar o login. Tente novamente." />
-          )}
+          <FormLogin method="POST" onSubmit={(event) => handleSubmit(event)} >
+          <Input
+            name="email"
+            label="E-mail ou username"
+            innerRef={emailInputRef}
+            type="text"
+          />
+          <Input
+            name="senha"
+            label="Senha"
+            type="password"
+            innerRef={senhaInputRef}
+          />
 
-          <FormLogin method="POST">
-            <Input
-              name="email"
-              label="E-mail ou username"
-              functionChange={(event) => setEmail(event.target.value)}
-              value={email}
-            />
-            <Input
-              name="senha"
-              label="Senha"
-              type="password"
-              functionChange={(event) => setSenha(event.target.value)}
-              value={senha}
-            />
+          <ContentText>
+            <ContentCheckbox>
+              <Checkbox /> <Texto>Lembrar-me</Texto>
+            </ContentCheckbox>
+            <TextoSub>Esqueceu sua senha?</TextoSub>
+          </ContentText>
 
-            <ContentText>
-              <ContentCheckbox>
-                <Checkbox /> <Texto>Lembrar-me</Texto>
-              </ContentCheckbox>
-              <TextoSub>Esqueceu sua senha?</TextoSub>
-            </ContentText>
+          <Button type="submit"> Entrar </Button>
 
-            <Button
-              onClick={(event) =>
-                handleLogin(event, { email, senha }, setTempError)
-              }
-            >
-              {" "}
-              Entrar{" "}
-            </Button>
-
-            <Texto>
-              Ainda não tem uma conta?{" "}
-              <Link to="/formusuario">Cadastre-se.</Link>
-            </Texto>
-          </FormLogin>
-        </FormContent>
-      </Content>
-    </Wrapper>
+          <Texto>
+            Ainda não tem uma conta?{" "}
+            <Link to="/formusuario">Cadastre-se.</Link>
+          </Texto>
+        </FormLogin>
+      </FormContent>
+    </Content>
+    </Wrapper >
   );
 }

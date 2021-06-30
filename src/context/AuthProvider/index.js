@@ -8,14 +8,9 @@ const Context = createContext();
 function AuthProvider({ children }) {
   const [authorized, setAuthorized] = useState(false);
   const [loading, setLoading] = useState(true);
-  console.log("Login ", authorized);
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
-    console.log(
-      "localStorage.getItem()",
-      JSON.parse(localStorage.getItem("token"))
-    );
 
     if (token) {
       axios.defaults.headers.authorization = `Bearer ${token}`;
@@ -24,7 +19,7 @@ function AuthProvider({ children }) {
     setLoading(false);
   }, []);
 
-  async function handleLogin(event, { email = "", senha = "" }, setTempError) {
+  async function handleLogin(event, { email = "", senha = "" }, notify) {
     event.preventDefault();
     try {
       axios
@@ -37,19 +32,20 @@ function AuthProvider({ children }) {
           } = response;
           localStorage.setItem("token", JSON.stringify(token));
           axios.defaults.headers.authorization = `Bearer ${token}`;
+          notify.ssuccess();
           setAuthorized(true);
           history.push("/Home");
         })
         .catch((err) => {
           console.log(err);
-          setTempError(true);
+          notify.error();
           return history.push({
             pathname: "/login",
             state: {
               error: true,
             },
           });
-          });
+        });
     } catch (error) {
       console.error("erro: ", error);
     }
