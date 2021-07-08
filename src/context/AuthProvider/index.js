@@ -21,6 +21,7 @@ function AuthProvider({ children }) {
 
   async function handleLogin(event, { email = "", senha = "" }, notify) {
     event.preventDefault();
+    console.log({ email, senha });
     try {
       axios
         .post("/autenticar", { email, senha })
@@ -32,7 +33,7 @@ function AuthProvider({ children }) {
           } = response;
           localStorage.setItem("token", JSON.stringify(token));
           axios.defaults.headers.authorization = `Bearer ${token}`;
-          notify.ssuccess();
+          notify.success();
           setAuthorized(true);
           history.push("/Home");
         })
